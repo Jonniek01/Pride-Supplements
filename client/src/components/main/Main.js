@@ -2,7 +2,7 @@ import './Main.css';
 
 import React from 'react'
 import Navbar from '../navbar/Navbar'
-import Carousel from './carousel/Carousel'
+import CarouselRender from './carousel/CarouselRender';
 import Footer from '../footer/Footer'
 import Products from '../products/Products'
 
@@ -10,7 +10,7 @@ function Main() {
   return (
     <div className='main'>
         <Navbar/>
-        <Carousel/>
+        <CarouselRender/>
         <Products/>
         <Footer/>
 

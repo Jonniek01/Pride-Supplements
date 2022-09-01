@@ -37,7 +37,7 @@ function Navbar() {
       </Link>
       </div>
       <div className="account">
-      <Link to='/account'>
+      <Link className='acc' to='/account'>
         <FcBusinesswoman/>
       </Link>
 

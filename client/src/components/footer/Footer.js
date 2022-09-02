@@ -1,8 +1,13 @@
 import React from 'react'
+import Map from './map/Map'
+import Foot from './foot/Foot'
 
 function Footer() {
   return (
-    <div>Footer</div>
+    <div>
+      <Map/>
+      <Foot/>
+    </div>
   )
 }
 

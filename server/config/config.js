@@ -5,6 +5,7 @@ const mongoose = require('mongoose')
 const url = `mongodb+srv://pride:prideProject@cluster0.gzf3lkz.mongodb.net/?retryWrites=true&w=majority`;
 
 const connectionParams={
+    dbName:'prideDB',
     useNewUrlParser: true,
 }
 const db= async ()=>{

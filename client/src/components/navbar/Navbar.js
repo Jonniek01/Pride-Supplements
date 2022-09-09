@@ -15,7 +15,7 @@ function Navbar() {
         <Link to='/'>SHOP</Link>
       </div>
       <div className="about">
-      <Link to='/about'>ABOUT US</Link>
+      <Link to='/#about'>ABOUT US</Link>
  
       </div>
       <div className="search">
@@ -37,7 +37,7 @@ function Navbar() {
       </Link>
       </div>
       <div className="account">
-      <Link to='/account'>
+      <Link className='acc' to='/account'>
         <FcBusinesswoman/>
       </Link>
 

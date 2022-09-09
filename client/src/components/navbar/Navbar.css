@@ -21,11 +21,16 @@
 
 }
 .logo .supplements{
-    color: #E8968F;
+    color: rgb(145, 5, 145);
 }
 .navbar a{
     text-decoration: none;
     color: black;
+    transition: all 0.2s;
+}
+.navbar a:hover{
+    text-decoration: none;
+    color: rgb(145, 5, 145);
 }
 
 .search {
@@ -41,4 +46,13 @@ align-items: center;
     border: none;
     outline: none;
     padding-left: 5px;
+    max-width: 90px;
+}
+.cart, .account {
+    font-size: 26px;
+}
+.acc{
+    background-color: rgb(145, 5, 145);
+    border-radius: 50%;
+    padding: 2px;
 }

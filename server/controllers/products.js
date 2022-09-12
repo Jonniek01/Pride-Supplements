@@ -1,14 +1,17 @@
-const {db} = require('../config/config')
+const {connectDB} = require('../config/config')
+const User = require ('../models/Product')
+
+connectDB()
 module.exports = {
     getProducts: async(req, res)=>{
-        db().then(()=>{
+        connectDB().then(async ()=>{
             res.send('reading products')
 
         })
 
     },
     createProduct: async(req, res)=>{
-        db().then(()=>{
+        connectDB().then(()=>{
             res.send('Posting product')
 
         })

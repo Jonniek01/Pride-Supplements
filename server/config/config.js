@@ -1,14 +1,10 @@
-
-
 const mongoose = require('mongoose')
-
-const url = `mongodb+srv://pride:prideProject@cluster0.gzf3lkz.mongodb.net/?retryWrites=true&w=majority`;
+const url = `mongodb+srv://pride:${process.env.MONGOPWD}@cluster0.gzf3lkz.mongodb.net/prideDB?retryWrites=true&w=majority`;
 
 const connectionParams={
-    dbName:'prideDB',
     useNewUrlParser: true,
 }
-const db= async ()=>{
+const connectDB= async ()=>{
     mongoose.connect(url,connectionParams)
     .then( () => {
         console.log('Connected to the database ')
@@ -17,4 +13,4 @@ const db= async ()=>{
         console.error(`Error connecting to the database. n${err}`);
     })
 }
-module.exports={db}
+module.exports={connectDB}

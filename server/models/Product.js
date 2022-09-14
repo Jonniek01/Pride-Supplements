@@ -19,10 +19,6 @@ const productSchema = new Schema({
         type:String,
         required:true
     },
-    ingridients: {
-        type:String,
-        required:true
-    },
     category: {
         type: String,
         required:true

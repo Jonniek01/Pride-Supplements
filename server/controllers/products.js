@@ -1,5 +1,5 @@
 const {connectDB} = require('../config/config')
-const User = require ('../models/Product')
+const Product = require ('../models/Product')
 
 connectDB()
 module.exports = {
@@ -11,10 +11,28 @@ module.exports = {
 
     },
     createProduct: async(req, res)=>{
-        connectDB().then(()=>{
-            res.send('Posting product')
-
-        })
+        const {identifier,
+             name, 
+             price,
+              description, 
+              category}=req.body;
+              console.log(identifier)
+              try {
+                //create and store user
+                const result =  await Product.create({
+                    identifier:identifier,
+                    name:name,
+                    price:price,
+                    description:description,
+                    category:category
+                });
+                console.log("result",result);
+                res.json(result);
+            }
+            catch(err){
+                res.status(500).json({'message':err.message})
+            }
+    
 
     },
 }

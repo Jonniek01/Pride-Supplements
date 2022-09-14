@@ -1,8 +1,6 @@
 GET http://localhost:8080/
 
 ###
-POST http://localhost:8080/
-###
 
 {
     "id":"12"
@@ -11,6 +9,7 @@ POST http://localhost:8080/
 
 ###
 POST http://localhost:8080/users/register
+Content-Type: application/json
 
 {"username":"john",
     "password":"test"
@@ -18,4 +17,16 @@ POST http://localhost:8080/users/register
 
 ###
 GET http://localhost:8080/images/url
+###
+POST http://localhost:8080/
+Content-Type: application/json
+
+
+{ "identifier":"t1",
+    "name":"test product",
+    "price":875,
+    "description":"desc",
+    "category":"cat"
+}
+
 ###

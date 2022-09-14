@@ -17,7 +17,7 @@ module.exports = {
             //create and store user
             const result =  await User.create({
                 username: username,
-                password: await bcrypt.hash(password,8,)
+                password: await bcrypt.hash(password,8)
             });
             console.log("result",result);
             res.json(result);

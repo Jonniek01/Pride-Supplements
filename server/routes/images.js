@@ -1,9 +1,9 @@
 const express = require('express');
-const products = express.Router();
+const images = express.Router();
 const {generateUploadURL} = require('../controllers/images')
 
-products.get('/url', generateUploadURL);
+images.get('/url', generateUploadURL);
 
 
 
-module.exports = {products};
+module.exports = {images};

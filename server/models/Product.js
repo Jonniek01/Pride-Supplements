@@ -22,6 +22,22 @@ const productSchema = new Schema({
     category: {
         type: String,
         required:true
+    },
+    ratings:{
+        total:{
+           type: Number,
+            default:0
+        },
+        count:{
+            type: Number,
+            default:0
+
+        },
+        average:{
+            type: Number,
+            default:0
+
+        }
     }
 
 });

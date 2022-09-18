@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import './FMS.css'
 import {Link, useNavigate} from 'react-router-dom'
 import { useState } from 'react';
@@ -7,14 +7,23 @@ import { AiOutlineClose } from 'react-icons/ai';
 
 
 
+
 function FMS() {
-  const navigate=useNavigate()
-let code=''
+const navigate=useNavigate();
+const [code, setCode] = useState('')
+useEffect(()=>{
+  console.log(code)
+
+}, [code])
+
 const FMS4=<div className='fms_div'>
 <p>Do you have any blackhead spots?</p>
  <button onClick={()=>{
+                setCode(code+'1')
+
               }} className="fms_button">YES</button>
  <button onClick={()=>{
+        setCode(code+'0')
               }} className="fms_button">NO</button>
 
 
@@ -24,23 +33,30 @@ const FMS4=<div className='fms_div'>
 const FMS3=<div className='fms_div'>
     <p>HOW DOES YOUR SKIN REACT TO ANY APPLICATIONS OR THE SUN?</p>
  <button onClick={()=>{
-                setDisplay(FMS4)
+                setX(x+1)
+                setCode(code+'1')
+
               }} className="fms_button">VERY SENSITIVE</button>
  <button onClick={()=>{
-                setDisplay(FMS4)
+                setCode(code+'0')
+
+                setX(x+1)
               }} className="fms_button">LESS SENSITIVE</button>
 </div>
 
 const FMS2=<div className='fms_div'>
   <p>What is your skin type?</p>
    <button onClick={()=>{
-                  setDisplay(FMS3)
+                 setCode(code+'1')
+                  setX(x+1)
                 }} className="fms_button">DRY</button>
    <button onClick={()=>{
-                  setDisplay(FMS3)
+              setCode(code+'0')
+                  setX(x+1)
                 }} className="fms_button">OILY</button>
    <button onClick={()=>{
-                  setDisplay(FMS3)
+        setCode('10')
+                  setX(x+1)
                 }} className="fms_button">COMBO</button>
 
 
@@ -48,7 +64,7 @@ const FMS2=<div className='fms_div'>
 
 const FMS1=<div className='fms_div'>
                 <button onClick={()=>{
-                  setDisplay(FMS2)
+                  setX(x+1)
                 }} className="fms_button">FIND MY PRODUCT</button>
                 <button onClick={()=>{
                   navigate('/')
@@ -56,24 +72,34 @@ const FMS1=<div className='fms_div'>
 
              </div>
 
-
-const [display, setDisplay]=useState(FMS1)
+const FMS=[FMS1, FMS2, FMS3, FMS4]
+const [x, setX]=useState(0)
   return (
-    <div className='fms'>
+    <div className='fms_component'>
       <div className="fms_nav">
         <div onClick={()=>{
-          navigate(-1)
+          if(x===0){
+            navigate(-1)
+
+          }else{
+            setCode(code.slice(0, -1))
+            setX(x-1);
+
+          }
+
         }} className="prev">
           <AiOutlineArrowLeft />
         </div>
         <div>
           <p>SUPPLEMENT FINDER</p>
         </div>
-        <Link to='/' className="close">
+        <Link onClick={()=>{
+          setCode('')
+        }} to='/' className="close">
           <AiOutlineClose/>
         </Link>
       </div>
-      {display}
+      {FMS[x]}
     </div>
   )
 }

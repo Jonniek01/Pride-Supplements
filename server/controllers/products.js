@@ -1,6 +1,7 @@
 /* eslint-disable no-unused-vars */
 const {connectDB} = require('../config/config')
 const Product = require ('../models/Product')
+const ObjectId = require('mongodb').ObjectID
 
 connectDB()
 module.exports = {
@@ -52,4 +53,18 @@ module.exports = {
     
 
     },
+    getProduct: async(req, res)=>{
+        const {id}= req.params
+                try{
+                    const result = await Product.find({_id : ObjectId(id)})
+                    res.status(200).json(result)
+                    }
+                    catch(err){
+                        res.status(500).json({
+                            "Error":err.message
+                        })
+                    }
+        
+    },
+
 }

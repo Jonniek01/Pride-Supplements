@@ -9,6 +9,7 @@ import FMS from './components/FMS/FMS';
 import Cart from './components/cart/Cart';
 import Account from './components/Account/Account';
 import Sequel from './components/sequel/Sequel';
+import ProductPage from './components/products/productPage/ProductPage';
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
         <Route path='/cart' element={<Cart/>} />
         <Route path='/account' element={<Account/>} />
         <Route path='/sequel' element={<Sequel/>}/>
+        <Route path='/products/:id' element={<ProductPage/>}/>
       </Routes>
       </Provider>
 

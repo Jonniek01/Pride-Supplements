@@ -5,9 +5,11 @@ require('dotenv').config();
 const { products } = require('./routes/products');
 const { users } = require('./routes/users');
 const { images } = require('./routes/images');
+const { codes } = require("./routes/codes");
 
 
-const mongoose = require('mongoose')
+
+const mongoose = require('mongoose');
 
 
 
@@ -22,6 +24,8 @@ const PORT = process.env.PORT;
 app.use('/',products);
 app.use('/users',users);
 app.use('/images',images);
+app.use('/codes',codes);
+
 
 
 mongoose.connection.once('open', ()=>{

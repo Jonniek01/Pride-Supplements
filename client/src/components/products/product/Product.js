@@ -1,11 +1,12 @@
 import React from 'react'
 import { BsFillHeartFill } from 'react-icons/bs';
 import StarRatings from 'react-star-ratings';
+import { Link } from 'react-router-dom';
 
 import './Product.css'
 function Product({product}) {
   return (
-    <div className='product'>
+    <Link to={`/products/${product._id}`} className='product'>
       <div className="image">
       <img src={product.image} alt={product.name}/>
       </div>
@@ -24,7 +25,7 @@ function Product({product}) {
       <div className='price'><p>{product.price} Ksh.</p></div>
             <div className="add"><button>Add to bag</button></div>
 
-          </div>
+          </Link>
   )
 }
 

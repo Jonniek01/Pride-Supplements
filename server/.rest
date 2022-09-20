@@ -5,7 +5,7 @@ GET http://localhost:8080/1/1
 
 ###
 //Product by id (from db)
-GET http://localhost:8080/:id
+GET http://localhost:8080/6322af7cb6cfb9a17bedb540
 
 
 ###
@@ -22,9 +22,9 @@ GET http://localhost:8080/cat/:category/:page/:limit
 POST http://localhost:8080/users/register
 Content-Type: application/json
 
-{"username":"john",
-    "password":"test"
-}
+# {"username":"john",
+#     "password":"test"
+# }
 
 ###
 GET http://localhost:8080/images/url
@@ -34,22 +34,35 @@ Content-Type: application/json
 
 
 { "identifier":
-    ""
+    "M08"
     ,
     "name":
-    ""
+    "BLK/OPL SKN™ EVEN TRUE Nutritive Skin Moisturizer"
     ,
     "price":
-    0
+    899
     ,
     "image":
-    ""
-    ,
+    "https://prideimages.s3.amazonaws.com/moisturizers/M08.png"
+          ,
     "description":
-    ""
- ,
+    "Fortified with a proprietary blend of brightening peptides and natural citrus extracts to improve skin's radiance and reverse hyper-pigmentation. Enriched with nourishing African-origin oils and butters that help skin retain moisture and protect against environmental damage."
+          ,
     "category":
-    ""
+    "moisturizers"
 }
 
 ###
+
+POST http://localhost:8080/codes/create
+Content-Type: application/json
+
+# {
+#     "skincode":"1000",
+#     "products":["C06","T02"]
+# }
+
+###
+GET http://localhost:8080/codes
+
+

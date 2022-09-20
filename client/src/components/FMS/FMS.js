@@ -11,22 +11,25 @@ import { AiOutlineClose } from 'react-icons/ai';
 function FMS() {
 const navigate=useNavigate();
 const [code, setCode] = useState('')
-useEffect(()=>{
-  console.log(code)
+const [flag, setFlag] = useState(false)
 
-}, [code])
+useEffect(()=>{
+  if(flag){
+    localStorage.setItem('code',code);
+    navigate('/sequel')
+  }
+}, [code,flag, navigate])
 
 const FMS4=<div className='fms_div'>
 <p>Do you have any blackhead spots?</p>
  <button onClick={()=>{
-                setCode(code+'1')
-
+                setCode(code+'1');
+                setFlag(true);
               }} className="fms_button">YES</button>
  <button onClick={()=>{
-        setCode(code+'0')
+        setCode(code+'0');
+        setFlag(true);
               }} className="fms_button">NO</button>
-
-
 </div>
 
 
@@ -55,11 +58,9 @@ const FMS2=<div className='fms_div'>
                   setX(x+1)
                 }} className="fms_button">OILY</button>
    <button onClick={()=>{
-        setCode('10')
+        setCode(code+'10')
                   setX(x+1)
                 }} className="fms_button">COMBO</button>
-
-
 </div>
 
 const FMS1=<div className='fms_div'>

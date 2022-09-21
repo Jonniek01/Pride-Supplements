@@ -14,7 +14,7 @@ module.exports= {
             res.json(result)
 
         }
-        catch(err){
+        catch(err){ 
             console.log(err)
         }
 
@@ -30,5 +30,5 @@ module.exports= {
                 err: err.message
             })
         }
-    }
+    } 
 }

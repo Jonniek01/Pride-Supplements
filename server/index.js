@@ -24,7 +24,7 @@ const PORT = process.env.PORT;
 app.use('/',products);
 app.use('/users',users);
 app.use('/images',images);
-app.use('/codes',codes);
+app.use('/p/codes/g',codes);
 
 
 

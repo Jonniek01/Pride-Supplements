@@ -63,6 +63,8 @@ Content-Type: application/json
 # }
 
 ###
-GET http://localhost:8080/codes
+GET http://localhost:8080/p/codes/g
 
+###
+GET http://localhost:8080/code/a/z/1010
 

@@ -1,24 +1,45 @@
 import React, { useEffect } from 'react'
 import './FMS.css'
+import axios from "axios";
 import {Link, useNavigate} from 'react-router-dom'
 import { useState } from 'react';
 import { AiOutlineArrowLeft } from 'react-icons/ai';
 import { AiOutlineClose } from 'react-icons/ai';
+import { useDispatch } from "react-redux";
+import { changeProduct } from "../../redux/slices/productSlice";
 
 
 
+//http://localhost:8080/code/a/z/1010
 
 function FMS() {
+  const dispatch = useDispatch();
+
 const navigate=useNavigate();
 const [code, setCode] = useState('')
 const [flag, setFlag] = useState(false)
 
 useEffect(()=>{
   if(flag){
-    localStorage.setItem('code',code);
+    axios.get(`http://localhost:8080/code/a/z/${code}`).then((res)=>{
+      dispatch(changeProduct(res.data)) 
+    }
+
+    )
     navigate('/sequel')
   }
-}, [code,flag, navigate])
+}, [code,flag, navigate, dispatch])
+
+const reset=()=>{
+  let usercode='111'//got from user data
+  axios.get(`http://localhost:8080/code/a/z/${usercode}`).then((res)=>{
+    dispatch(changeProduct(res.data)) 
+  }
+
+  )
+  navigate('/sequel')
+}
+
 
 const FMS4=<div className='fms_div'>
 <p>Do you have any blackhead spots?</p>
@@ -66,10 +87,10 @@ const FMS2=<div className='fms_div'>
 const FMS1=<div className='fms_div'>
                 <button onClick={()=>{
                   setX(x+1)
-                }} className="fms_button">FIND MY PRODUCT</button>
+                }} className="fms_button">FIND MY PRODUCTS</button>
                 <button onClick={()=>{
-                  navigate('/')
-                }} className="fms_button">I KNOW MY PRODUCT</button>
+                  reset()
+                }} className="fms_button">MY PRODUCTS</button>
 
              </div>
 

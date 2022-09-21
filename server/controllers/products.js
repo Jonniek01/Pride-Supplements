@@ -2,6 +2,8 @@
 const {connectDB} = require('../config/config')
 const Product = require ('../models/Product')
 const ObjectId = require('mongodb').ObjectID
+const Code = require ('../models/Code')
+
 
 connectDB()
 module.exports = {
@@ -44,7 +46,6 @@ module.exports = {
                     description:description,
                     category:category
                 });
-                console.log("result",result);
                 res.json(result);
             }
             catch(err){
@@ -66,5 +67,29 @@ module.exports = {
                     }
         
     },
+    getProductByCode: async(req, res)=>{
+        const {code}= req.params;
+        try{
+            Code.find({skincode:code}).then(async (result)=>{
+                const items= await Product.find({identifier:result[0].products})
+                res.json(items)
+
+            })
+            .catch((err)=>{
+                res.status(500).json({
+                    "Error":err.message
+                })
+                })
+            
+
+        }
+        catch(err){
+            res.status(500).json({
+                "Error":err.message
+            })
+
+        }
+
+    }
 
 }

@@ -1,7 +1,8 @@
 import React from 'react'
 import Navbar from '../navbar/Navbar'
-import Products from '../products/Products'
 import Footer from '../footer/Footer'
+import Products from '../products/Products'
+
 import Info from './info/Info'
 
 function Sequel() {

@@ -91,6 +91,11 @@ const FMS1=<div className='fms_div'>
                 <button onClick={()=>{
                   reset()
                 }} className="fms_button">MY PRODUCTS</button>
+                                <button onClick={()=>{
+                 navigate('/')
+                }} className="fms_button">I MY PRODUCTS</button>
+
+
 
              </div>
 

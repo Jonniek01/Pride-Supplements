@@ -86,7 +86,7 @@ border: none;
     cursor: pointer;
 }
 .add_action{
-    background-color: black;
+    /* background-color: black; */
     border: none;
     outline: none;
     color: white;

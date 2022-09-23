@@ -7,17 +7,69 @@ import Navbar from '../../navbar/Navbar'
 import Footer from '../../footer/Footer'
 import { BsFillHeartFill } from 'react-icons/bs';
 import StarRatings from 'react-star-ratings';
+import { useDispatch, } from "react-redux";
+import { changeCart } from "../../../redux/slices/cartSlice";
+import { useSelector } from "react-redux";
+
+
 
 
 
 
 function ProductPage() {
+  const cart = useSelector((state) => state.cart);
+  const [count, setCount]= useState(1)
+  const [text, setText]= useState('ADD TO CART')
+  const [color, setColor] =useState('black')
+
   let params = useParams();
+  const dispatch = useDispatch();
+  const addToCart=()=>{
+    console.log(cart)
+    let cart1=cart
+    const data= {
+      id:product._id,
+      image:product.image,
+      name:product.name,
+      count:count,
+      price:product.price,
+    }
+    if(cart.length===0){
+      console.log("length",cart.length)
+      cart1=[...cart1, data]
+
+      dispatch(changeCart(cart1)) 
+      setText('ADDED TO CART');
+      setColor('red');
+      alert('added')
+    }
+    else if(cart.some((item)=>{return item.id===product._id})){
+      alert('exists')
+   
+        }
+        else{
+          cart1=[...cart1, data]
+  
+          dispatch(changeCart(cart1)) 
+          setText('ADDED TO CART');
+          setColor('red');
+          alert('added')
+
+        }
+
+    console.log("state",cart)
+
+  }
+
+
+
+
   const [product, setProduct]= useState(false)
         axios.get(`http://localhost:8080/${params.id}`).then(res=>{
           setProduct(res.data[0])
         }
         )
+  
 
     return (
     <div className="product_page">
@@ -62,15 +114,25 @@ function ProductPage() {
             </div>
             <div className="add_cart">
               <div className="values">
-                <button className="rm">
+                <button onClick={
+                  ()=>{
+                    setCount(count+1)
+                  }
+                }  className="rm">
                     +
                 </button>
-                <input type={'number'} />
-                <button className="add">
+                <input onChange={(e)=>{
+                  setCount(e.target.value)
+                }} value={count} type={'number'} />
+                <button onClick={()=>{
+                  if(count>1){
+                    setCount(count-1)
+                  }
+                }} className="add">
                     -
                 </button>
               </div>
-              <button className="add_action">ADD TO CART</button>
+              <button onClick={()=>{addToCart()}} style={{backgroundColor:color}} className="add_action">{text}</button>
             </div>
             </div>    
       </div>

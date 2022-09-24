@@ -15,9 +15,16 @@ import { changeProduct } from "../../redux/slices/productSlice";
 function FMS() {
   const dispatch = useDispatch();
 
+
+
 const navigate=useNavigate();
 const [code, setCode] = useState('')
 const [flag, setFlag] = useState(false)
+const [search, setSearch] = useState("");
+const url=`http://localhost:8080/products/search/${search}`
+const getProducts= axios.get(url)
+
+
 
 useEffect(()=>{
   if(flag){
@@ -30,15 +37,40 @@ useEffect(()=>{
   }
 }, [code,flag, navigate, dispatch])
 
-const reset=()=>{
-  let usercode='111'//got from user data
-  axios.get(`http://localhost:8080/code/a/z/${usercode}`).then((res)=>{
-    dispatch(changeProduct(res.data)) 
-  }
+// const reset=()=>{
+//   let usercode='111'//got from user data
+//   axios.get(`http://localhost:8080/code/a/z/${usercode}`).then((res)=>{
+//     dispatch(changeProduct(res.data)) 
+//   }
 
-  )
-  navigate('/sequel')
+//   )
+//   navigate('/sequel')
+// }
+const handleKeyDown = event => {
+  if (event.key === 'Enter') {
+    console.log(search)
+    console.log('Enter key pressed ✅');
+    getProducts.then((response)=>{
+      dispatch(changeProduct(response.data))  ;
+      navigate('/')
+    })
+    .catch((err)=>{
+      console.log(err)
+
+    });;
+
+
+  }
 }
+
+const SEARCH=<div className='fms_div'>
+<p>Enter a key word or the name of your product to search</p>
+<input className='search_box'
+          onKeyDown={handleKeyDown}
+           onChange={(e) => {
+            setSearch(e.target.value)
+        }} type={'text'} placeholder='Search...'/>
+</div>
 
 
 const FMS4=<div className='fms_div'>
@@ -89,17 +121,15 @@ const FMS1=<div className='fms_div'>
                   setX(x+1)
                 }} className="fms_button">FIND MY PRODUCTS</button>
                 <button onClick={()=>{
-                  reset()
-                }} className="fms_button">MY PRODUCTS</button>
-                                <button onClick={()=>{
-                 navigate('/')
-                }} className="fms_button">I MY PRODUCTS</button>
+                    setX(4)
+                 
+                }} className="fms_button">I KNOW MY PRODUCTS</button>
 
 
 
              </div>
 
-const FMS=[FMS1, FMS2, FMS3, FMS4]
+const FMS=[FMS1, FMS2, FMS3, FMS4, SEARCH]
 const [x, setX]=useState(0)
   return (
     <div className='fms_component'>

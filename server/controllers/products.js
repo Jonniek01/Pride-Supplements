@@ -90,6 +90,24 @@ module.exports = {
 
         }
 
+    },
+    search: async (req, res)=>{
+        const {query}=req.params;
+        console.log("searching", query)
+
+        try{
+            const items= await Product.find({ $text: { $search: query } });
+            res.json(items)
+
+        }
+        catch(err){
+            res.status(500).json({
+                "Error":err.message
+            })
+
+        }
+
+
     }
 
 }

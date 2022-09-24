@@ -1,25 +1,22 @@
 import React from 'react'
 import './Navbar.css'
-import { Link } from 'react-router-dom';
+import { Link, Navigate } from 'react-router-dom';
 import { AiOutlineSearch } from 'react-icons/ai';
 import { BsCartFill } from 'react-icons/bs';
 import { FcBusinesswoman } from 'react-icons/fc';
 import axios from "axios";
 import { useDispatch, } from "react-redux";
 import { changeProduct } from "../../redux/slices/productSlice";
-
-
-
-
-
+import { useState } from 'react';
 
 function Navbar() {
   const dispatch = useDispatch();
   const url=`http://localhost:8080/1/9`
+  const [search, setSearch] = useState("");
   const getProducts= axios.get(url)
 
+
   const reset=()=>{
-    dispatch(changeProduct([]));
     getProducts.then((response)=>{
       dispatch(changeProduct(response.data))  
     })
@@ -29,6 +26,23 @@ function Navbar() {
     });;
 
 
+  }
+  const handleKeyDown = event => {
+    if (event.key === 'Enter') {
+      console.log(search)
+      console.log('Enter key pressed ✅');
+      const url=`http://localhost:8080/products/search/${search}`
+      axios.get(url).then((response)=>{
+        dispatch(changeProduct(response.data)) 
+      })
+      .catch((err)=>{
+        console.log(err)
+  
+      });;
+      Navigate('/') 
+
+  
+    }
   }
   return (
     <div className='navbar'>
@@ -42,7 +56,11 @@ function Navbar() {
       <div className="search">
         <div className="search_container">
           <AiOutlineSearch/>
-          <input type={'text'} placeholder='Search...'/>
+          <input
+          onKeyDown={handleKeyDown}
+           onChange={(e) => {
+            setSearch(e.target.value)
+        }} type={'text'} placeholder='Search...'/>
         </div>
       </div>
       <Link to='/' className="logo">

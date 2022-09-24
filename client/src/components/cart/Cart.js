@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import Footer from '../footer/Footer'
 import './Cart.css'
 import { AiOutlineArrowLeft } from 'react-icons/ai';
@@ -11,7 +11,24 @@ function Cart() {
   const cart = useSelector((state) => state.cart);
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const [total, setTotal]= useState(0)
+  const [itemsCount, setItemCount]= useState(0)
 
+useEffect(()=>{
+  let items=cart;
+  setTotal(0)
+  let i =0;
+  let tot=0
+  let count=0
+  for(i;i<items.length;i++){
+      tot=tot+items[i].count*items[i].price
+      count=count+items[i].count
+
+  }
+  setTotal(tot)
+  setItemCount(count)
+
+},[cart])
 
   const increment=(id,count )=>{
     const items=cart
@@ -27,11 +44,7 @@ function Cart() {
     const items=cart
     const newItems=items.map(item=>{
       if(item.id===id){
-        if(count===1){
-          console.log(count, id);
-            remove(id);
-        }
-        else{
+        if(count>1){
           return {...item, count: item.count-1}
 
         }
@@ -41,45 +54,26 @@ function Cart() {
     dispatch(changeCart(newItems))
   }
   const remove = (id)=>{
-    console.log("removing", id)
     const items=cart
-    console.log(items.filter(item=>item.id!==id));
     dispatch(changeCart(items.filter(item=>item.id!==id)))
-
   }
+  
   const removeAll = ()=>{
     dispatch(changeCart([]))
   }
-const getTotal=()=>{
-  if(cart.length===0){
-    return 0
-  }
-  else {
-    return cart.forEach(function (item) {
-      let x;
-      let total=item.price*item.count
-      x+=total;
-   return x
-});
-  }
 
-}
-const TOTAL= getTotal()
 const shipping=30;
 
   return (
     <div className='cart_container'>
       {
         cart.length===0?
-        <div className='shopping_cart'>
           <div className="cart_empty">
           <h1>Your cart is empty</h1>
-          </div>
-        <div className="back">
-          <button onClick={()=>{
+          <p className='back' onClick={()=>{
             navigate(-1)
-          }}>Go back</button>
-        </div>
+          }}><AiOutlineArrowLeft/> Go back</p>
+
           
 
         </div>
@@ -88,7 +82,7 @@ const shipping=30;
           <div className="items">
             <div className="items_head">
               <h3>Shopping cart</h3>
-              <p>{cart.length} Items</p>
+              <p>{itemsCount} Items</p>
             </div>
             <p className="line"></p>
             <div className="items_body">
@@ -105,6 +99,7 @@ const shipping=30;
              <p>Price</p>
               </p>
               <p className='total'>Total</p>
+              <p>Matching</p>
               <button onClick={()=>{
                 removeAll()
               }} className='remove remove_all'>Remove all</button>
@@ -140,6 +135,7 @@ const shipping=30;
               {item.price}
               </p>
               <p className='total'>{item.price*item.count}</p>
+              <p>Matched</p>
               <button onClick={()=>{
                 remove(item.id)
               }} className='remove'>Remove</button>
@@ -163,18 +159,19 @@ const shipping=30;
             <p className="line"></p>
             <div className="summary">
               <div className="items_total">
-                <span>{cart.length} Items</span>
-                <span>{TOTAL}</span>
+                <span>ITEMS {itemsCount} </span>
+                <span>KSH {total}</span>
 
               </div>
               <div className="shipping">
-                <span>Shipping</span>
-                <span>ksh {shipping}</span>
+                <span>SHIPPING</span>
+                <span>KSH {shipping}</span>
               </div>
               <div className="total_cost">
                   <span>TOTAL COST</span>
-                  <span>{TOTAL+shipping}</span>
+                  <span>KSH {total+shipping}</span>
               </div>
+              <button className='checkout'>CHECKOUT</button>
             </div>
 
           </div>

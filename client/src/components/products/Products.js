@@ -11,7 +11,7 @@ function Products() {
     <div className='products' id='products'>
       {
         products.map((product)=>{
-          return <Product product={product}/>
+          return <Product key={product._id} product={product}/>
         })
       }
       

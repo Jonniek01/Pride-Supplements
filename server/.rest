@@ -68,3 +68,5 @@ GET http://localhost:8080/p/codes/g
 ###
 GET http://localhost:8080/code/a/z/1010
 
+###
+GET http://localhost:8080/products/search/moisturizer

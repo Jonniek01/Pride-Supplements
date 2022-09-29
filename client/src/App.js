@@ -1,6 +1,6 @@
 import './App.css';
 import React from 'react'
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, useNavigate } from 'react-router-dom';
 import Main from './components/main/Main';
 import Admin from './components/admin/Admin';
 import FMS from './components/FMS/FMS';
@@ -12,9 +12,13 @@ import axios from "axios";
 import { useEffect } from "react";
 import { useDispatch, } from "react-redux";
 import { changeProduct } from "./redux/slices/productSlice";
+import Auth from './components/auth/Auth';
+import Login from './components/auth/login/Login';
+import SignUp from './components/auth/signup/SignUp';
 
 
 function App() {
+  const navigate=useNavigate('/')
   const dispatch = useDispatch();
   const url=`http://localhost:8080/1/9`
   const getProducts= axios.get(url)
@@ -29,7 +33,9 @@ function App() {
     });;
 
 
-  })
+  });
+
+  const user=localStorage.getItem('user')
 
   return (
     <div className="App">
@@ -38,9 +44,14 @@ function App() {
         <Route path='/admin' element={<Admin/>}/>
         <Route path='/fms' element={<FMS/>}/>
         <Route path='/cart' element={<Cart/>} />
-        <Route path='/account' element={<Account/>} />
+        <Route path='/account' element={user===null?navigate('/auth'):<Account/>} />
         <Route path='/sequel' element={<Sequel/>}/>
         <Route path='/products/:id' element={<ProductPage/>}/>
+        <Route path='/auth' element={<Auth/>}>
+          <Route index path='/auth/login' element={<Login/>}/>
+          <Route path='/auth/signup' element={<SignUp/>}/>
+        </Route>
+
       </Routes>
 
     </div>

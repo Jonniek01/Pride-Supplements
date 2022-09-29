@@ -7,12 +7,18 @@ import { useDispatch, } from "react-redux";
 import { changeCart } from "../../redux/slices/cartSlice";
 import { useSelector } from "react-redux";
 import { useNavigate} from 'react-router-dom';
+import axios from 'axios'
 function Cart() {
   const cart = useSelector((state) => state.cart);
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [total, setTotal]= useState(0)
   const [itemsCount, setItemCount]= useState(0)
+  const user={
+    name:"john",
+    id:"123"
+  }
+
 
 useEffect(()=>{
   let items=cart;
@@ -63,6 +69,17 @@ useEffect(()=>{
   }
 
 const shipping=30;
+
+
+const handleCheckout=()=>{
+  const order={
+    user_id:user.id,
+    items:cart,
+    count:itemsCount,
+    total:total+shipping
+  }
+
+}
 
   return (
     <div className='cart_container'>
@@ -171,7 +188,9 @@ const shipping=30;
                   <span>TOTAL COST</span>
                   <span>KSH {total+shipping}</span>
               </div>
-              <button className='checkout'>CHECKOUT</button>
+              <button onClick={()=>{
+                handleCheckout()
+              }} className='checkout'>CHECKOUT</button>
             </div>
 
           </div>

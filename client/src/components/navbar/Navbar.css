@@ -56,3 +56,14 @@ align-items: center;
     border-radius: 50%;
     padding: 2px;
 }
+@media screen and (max-width: 768px) {
+    .navbar{
+        display: none;
+    }
+}
+    
+@media screen and (max-width: 500px) {
+    .navbar{
+        display: none;
+    }
+}

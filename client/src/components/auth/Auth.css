@@ -19,3 +19,14 @@
     height: 100vh;
 
 }
+@media only screen and (max-width: 768px) {
+    .auth{
+        grid-template-columns: 1fr;
+    }
+    .auth_image{
+        display: none;
+    }
+    .form_div{
+        height: 100%;
+    }
+}

@@ -18,7 +18,6 @@ import SignUp from './components/auth/signup/SignUp';
 
 
 function App() {
-  const navigate=useNavigate('/')
   const dispatch = useDispatch();
   const url=`http://localhost:8080/1/9`
   const getProducts= axios.get(url)
@@ -35,7 +34,6 @@ function App() {
 
   });
 
-  const user=localStorage.getItem('user')
 
   return (
     <div className="App">
@@ -44,7 +42,7 @@ function App() {
         <Route path='/admin' element={<Admin/>}/>
         <Route path='/fms' element={<FMS/>}/>
         <Route path='/cart' element={<Cart/>} />
-        <Route path='/account' element={user===null?navigate('/auth'):<Account/>} />
+        <Route path='/account' element={<Account/>} />
         <Route path='/sequel' element={<Sequel/>}/>
         <Route path='/products/:id' element={<ProductPage/>}/>
         <Route path='/auth' element={<Auth/>}>

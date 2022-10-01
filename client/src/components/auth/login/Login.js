@@ -17,8 +17,8 @@ function Login() {
             <input placeholder='password' type="password" />
         </div>
         <div className='submit'>
-            <button className='active' type='submit'>sign in</button>
-            <button className='link' onClick={()=>navigate('/auth/signup')} >Sign In</button>
+            <button className='active' type='submit'>Sign In</button>
+            <button className='link' onClick={()=>navigate('/auth/signup')} >Sign Up</button>
 
         </div>
         <Link className='to_home' to='/'>PRIDE HOME</Link>

@@ -14,6 +14,7 @@ function Navbar() {
   const url=`http://localhost:8080/1/9`
   const [search, setSearch] = useState("");
   const getProducts= axios.get(url)
+  const user=localStorage.getItem('user')
 
 
   const reset=()=>{
@@ -76,7 +77,7 @@ function Navbar() {
       </Link>
       </div>
       <div className="account">
-      <Link className='acc' to='/account'>
+      <Link className='acc' to={user===null?'/auth/login':'/account'}>
         <FcBusinesswoman/>
       </Link>
 

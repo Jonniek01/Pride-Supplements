@@ -56,4 +56,7 @@
     outline: none;
     padding: 5px;
 }
+.search_box:focus{
+    border: 1px solid #171822;    
+}
 

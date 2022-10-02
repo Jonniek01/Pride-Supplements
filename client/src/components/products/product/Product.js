@@ -18,7 +18,7 @@ function Product({product}) {
         rating={2.403}
         starDimension="20px"
         starSpacing="6px"
-        starRatedColor="rgb(145, 5, 145)"
+        starRatedColor="#d42d49"
       />
       </div>
 

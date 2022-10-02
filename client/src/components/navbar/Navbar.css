@@ -21,7 +21,7 @@
 
 }
 .logo .supplements{
-    color: rgb(145, 5, 145);
+    color:#d42d49;
 }
 .navbar a{
     text-decoration: none;
@@ -30,7 +30,7 @@
 }
 .navbar a:hover{
     text-decoration: none;
-    color: rgb(145, 5, 145);
+    color: #d42d49;
 }
 
 .search {
@@ -52,7 +52,7 @@ align-items: center;
     font-size: 26px;
 }
 .acc{
-    background-color: rgb(145, 5, 145);
+    background-color: #d42d49;
     border-radius: 50%;
     padding: 2px;
 }

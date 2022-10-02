@@ -30,10 +30,10 @@
     transition: all 0.5s;
 }
 .indicators button.active{
-    background-color: rgb(243, 44, 183);
+    background-color: #d42d49;
 }
 .indicators button:hover{
-    background-color: rgb(243, 44, 183);
+    background-color: #d42d49;
 }
 .item {
     width: 100%;

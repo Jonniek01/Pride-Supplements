@@ -26,5 +26,13 @@ module.exports = {
             res.status(500).json({'message':err.message})
         }
 
+    },
+    checkEmail : async (req, res)=>{
+        const {email} = req.params;
+        const duplicate = await User.findOne({'contact.email': email}).exec();
+        if(duplicate){
+            return res.sendStatus(409);
+        }
+        res.sendStatus(200);
     }
 }

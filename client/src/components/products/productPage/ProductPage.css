@@ -93,3 +93,8 @@ border: none;
     width: 150px;
     height: 40px;
 }
+@media screen and (max-width: 768px) {
+    .navdesk{
+        display: none;
+    }
+}

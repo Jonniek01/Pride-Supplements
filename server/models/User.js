@@ -12,7 +12,7 @@ const userSchema = new Schema({
     },
     skincode : {
         type:String,
-        required: true
+        default:''
     },
     contact : {
         phone : {

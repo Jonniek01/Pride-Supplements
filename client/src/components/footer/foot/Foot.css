@@ -22,13 +22,13 @@
 }
 .details div:hover{
     padding: 1%;
-    color: rgb(145, 5, 145);
+    color: #d42d49;
     cursor: progress;
 
     
 }
 .details div h2{
-    color: rgb(145, 5, 145);
+    color: #d42d49;
     
 
 }
@@ -40,7 +40,7 @@
     color: inherit;
 }
 .social {
-    color: rgb(145, 5, 145);
+    color: #d42d49;
     font-size: 30px;
     display: flex;
     gap: 10px;

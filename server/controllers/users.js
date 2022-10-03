@@ -5,34 +5,51 @@ module.exports = {
         res.send('Getting users')
     },
     register : async (req, res)=>{
-        const {username, password}= req.body;
-        console.log(req.body)
-        // const duplicate = await User.findOne({'contact.email': email}).exec();
-        const duplicate = false;
+        const {username, password, email, phone}= req.body;
+        const duplicate = await User.findOne({'contact.email': email}).exec();
 
         if(duplicate){
-            return res.sendStatus(409);
+            res.status(409).json({'message':'Email already exists'});
+            return;
         }
         try {
             //create and store user
+            console.log(req.body)
             const result =  await User.create({
                 username: username,
-                password: await bcrypt.hash(password,8)
+                password: await bcrypt.hash(password,8),
+                contact: {
+                    email:email,
+                    phone:phone
+                    }
+
             });
             console.log("result",result);
             res.json(result);
         }
         catch(err){
+            console.log(err)
             res.status(500).json({'message':err.message})
         }
 
     },
-    checkEmail : async (req, res)=>{
-        const {email} = req.params;
-        const duplicate = await User.findOne({'contact.email': email}).exec();
-        if(duplicate){
-            return res.sendStatus(409);
+    login : async (req, res)=>{
+        const {email, password}= req.body;
+        const user = await User.findOne({'contact.email': email}).exec();
+        if(!user){
+            res.status(404).json({'message':'User not found'});
+            return;
         }
-        res.sendStatus(200);
-    }
+        try {
+            const result = await bcrypt.compare(password, user.password);
+            if(result){
+                res.json(user);
+            }else{
+                res.status(401).json({'message':'Invalid credentials'});
+            }
+        }
+        catch(err){
+            res.status(500).json({'message':err.message})
+        }
+    },
 }

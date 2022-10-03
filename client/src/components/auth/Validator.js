@@ -1,8 +1,11 @@
 import axios from 'axios'
 
-export const emailValidator=(email, setErrors)=>{
+export const emailValidator=(email,errors, setErrors)=>{
+  let err=errors;
+
   if (!new RegExp(/\S+@\S+\.\S+/).test(email)) {
-            setErrors({email:true})
+          err.email=true
+            setErrors(err)
 
         return "Incorrect email format";
       }
@@ -10,57 +13,83 @@ export const emailValidator=(email, setErrors)=>{
         
         axios.get(`http://localhost:8080/users/check/{email}`).then(res=>{
             if(res.status===409){
-                setErrors({email:true})
+              err.email=true
+
+              setErrors(err)
 
                 return "Email already exists";
             }
             else {
-                setErrors({email:false})
-                return ""};
+              err.email=false
+
+              setErrors(err)
+              return ""};
 
         })
     }
-    setErrors({email:false})
+    err.email=false
+
+    setErrors(err)
     return "";
 
 }
-export const passwordValidator=(password, setErrors)=>{
+export const passwordValidator=(password, errors, setErrors)=>{
+  let err=errors;
+
     if (password==="") {
-        setErrors({email:true})
+      err.password=true
+      setErrors(err)
 
         return "Password is required";
       } else if (password.length < 8) {
-        setErrors({email:true})
+        err.password=true
+
+        setErrors(err)
 
         return "Password must have a minimum 8 characters";
       }
-      setErrors({email:false})
+      err.password=false
+
+      setErrors(err)
 
       return "";
 }
-export const phoneValidator=(phone, setErrors)=>{
+export const phoneValidator=(phone, errors, setErrors)=>{
+  let err=errors;
+
     if (phone==="") {
-        setErrors({email:true})
+      err.phone=true
+      setErrors(err)
 
         return "Phone number is required";
-      } 
-      setErrors({email:false})
+      } else if (phone.length < 8) {
+        err.phone=true
+        setErrors(err)
+
+        return "Phone too short";
+
+      }
+      err.phone=false
+      setErrors(err)
 
       return "";
 }
 
-export const usernameValidator=(username, setErrors)=>{
+export const usernameValidator=(username,errors, setErrors)=>{
+  let err=errors;
     if (username==="") {
-        setErrors({email:true})
+      err.username=true;
+      setErrors(err)
 
         return "user name  is required";
       } else if (username.length<3) {
-        setErrors({email:true})
+        err.username=true
+        setErrors(err)
 
         return "user name  must have a minimum 3 characters";
       } 
-
-      setErrors({email:false})
+        err.username=false;
+        setErrors(err)
 
       return "";
 }

@@ -22,9 +22,13 @@ GET http://localhost:8080/cat/:category/:page/:limit
 POST http://localhost:8080/users/register
 Content-Type: application/json
 
-# {"username":"john",
-#     "password":"test"
-# }
+{
+    "username":"john oe",
+    "password":"test",
+
+    "email":"test@ail.com",
+    "phone":"123456789"
+}
 
 ###
 GET http://localhost:8080/images/url
@@ -73,3 +77,13 @@ GET http://localhost:8080/products/search/moisturizer
 ###
 
 GET http://localhost:8080/users/check/jjjjj
+
+###
+POST http://localhost:8080/users/login
+Content-Type: application/json
+
+{
+   "email":"test@ail.com",
+    "password":"test"
+}
+

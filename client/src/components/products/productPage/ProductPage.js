@@ -10,8 +10,7 @@ import StarRatings from 'react-star-ratings';
 import { useDispatch, } from "react-redux";
 import { changeCart } from "../../../redux/slices/cartSlice";
 import { useSelector } from "react-redux";
-
-
+import { ToastContainer, toast } from 'react-toastify';
 
 
 
@@ -21,6 +20,17 @@ function ProductPage() {
   const [count, setCount]= useState(1)
   const [text, setText]= useState('ADD TO CART')
   const [color, setColor] =useState('black')
+  const notify = (err) => {
+    if(err===""){
+
+    }
+    else
+
+    toast.success(err);
+
+}
+
+
 
   let params = useParams();
   const dispatch = useDispatch();
@@ -40,11 +50,11 @@ function ProductPage() {
 
       dispatch(changeCart(cart1)) 
       setText('ADDED TO CART');
-      setColor('red');
-      alert('added')
+      setColor('green');
+      notify("Added to cart !")
     }
     else if(cart.some((item)=>{return item.id===product._id})){
-      alert('exists')
+      notify("Product already in cart!")
    
         }
         else{
@@ -52,8 +62,8 @@ function ProductPage() {
   
           dispatch(changeCart(cart1)) 
           setText('ADDED TO CART');
-          setColor('red');
-          alert('added')
+          setColor('green');
+          notify("Added to cart !")
 
         }
 
@@ -72,6 +82,7 @@ function ProductPage() {
   
 
     return (
+      <>
     <div className="product_page">
       <Navbar/>
 
@@ -99,7 +110,7 @@ function ProductPage() {
             rating={2.403}
             starDimension="20px"
             starSpacing="6px"
-            starRatedColor="rgb(145, 5, 145)"
+            starRatedColor="#d42d49"
              />
 
 
@@ -132,7 +143,7 @@ function ProductPage() {
                     -
                 </button>
               </div>
-              <button onClick={()=>{addToCart()}} style={{backgroundColor:color}} className="add_action">{text}</button>
+              <button onClick={()=>{addToCart()}} style={{backgroundColor:color, cursor:"pointer"}} className="add_action">{text}</button>
             </div>
             </div>    
       </div>
@@ -144,6 +155,21 @@ function ProductPage() {
     }
     <Footer/>
     </div>
+    <ToastContainer
+    className={'toast'}
+        style={{width:"300px", height:"50px"}}
+        position="top-center"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        />
+        </>
+
   )
 }
 

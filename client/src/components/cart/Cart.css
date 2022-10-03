@@ -215,3 +215,14 @@
     margin-top: 20px;
     text-align: center;    
 }
+
+@media only screen and (max-width: 768px) {
+    .shopping_cart{
+        display: flex;
+        flex-direction: column;
+    }
+   
+  }
+  @media screen and (max-width: 768px) {
+    
+  }

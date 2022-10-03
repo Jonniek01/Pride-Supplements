@@ -2,6 +2,9 @@ import React from 'react'
 import './Login.css'
 import { useNavigate, Link } from 'react-router-dom'
 import { useState } from 'react'
+import axios from 'axios'
+import { ToastContainer, toast } from 'react-toastify';
+
 
 
 function Login() {
@@ -10,6 +13,15 @@ function Login() {
     email:'',
     password:'',
 });
+const notify = (err) => {
+  if(err===""){
+
+  }
+  else
+
+  toast.error(err);
+
+}
 
 const onUpdateField = e => {
     const nextFormState = {
@@ -21,12 +33,29 @@ const onUpdateField = e => {
 
   const onSubmitForm = e => {
     e.preventDefault();
-    alert(JSON.stringify(form, null, 2));
+      axios.post('http://localhost:8080/users/login', form).then(
+        (res)=>{
+          localStorage.setItem('user', JSON.stringify(res.data));
+          navigate('/cart')
+        }
+      )
+      .catch((err)=>{
+        console.log(err)
+        if(err.response.status===404){
+          notify("User not found");
+          return
+  
+        }
+        notify("Error, try again");
+      })
+  
   };
   
 
 
   return (
+    <>
+    
     <form onSubmit={onSubmitForm} className='login'>
         <h3>Sign In</h3>
         <p>Or use email for registeration</p>
@@ -48,6 +77,21 @@ const onUpdateField = e => {
 
 
     </form>
+    <ToastContainer
+    className={'toast'}
+        style={{width:"300px", height:"50px"}}
+        position="top-center"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        />
+        </>
+
   )
 }
 

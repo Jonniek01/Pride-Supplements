@@ -4,6 +4,8 @@ import { Link, Navigate } from 'react-router-dom';
 import { AiOutlineSearch } from 'react-icons/ai';
 import { BsCartFill } from 'react-icons/bs';
 import { FcBusinesswoman } from 'react-icons/fc';
+import { BiMenu } from 'react-icons/bi';
+
 import axios from "axios";
 import { useDispatch, } from "react-redux";
 import { changeProduct } from "../../redux/slices/productSlice";
@@ -15,6 +17,7 @@ function Navbar() {
   const [search, setSearch] = useState("");
   const getProducts= axios.get(url)
   const user=localStorage.getItem('user')
+  const [over, setOver] = useState('none')
 
 
   const reset=()=>{
@@ -47,6 +50,9 @@ function Navbar() {
   }
   return (
     <div className='navbar'>
+      <div className="navdesk">
+
+
       <div className="shop">
         <Link onClick={()=>{reset()}} to='/'>SHOP</Link>
       </div>
@@ -82,6 +88,53 @@ function Navbar() {
       </Link>
 
       </div>
+      </div>
+      <div className="navmobile">
+      <div className="logo">PRIDE</div>
+      <div className="search">
+        <div className="search_container">
+          <AiOutlineSearch/>
+          <input
+          onKeyDown={handleKeyDown}
+           onChange={(e) => {
+            setSearch(e.target.value)
+        }} type={'text'} placeholder='Search...'/>
+        </div>
+      </div>
+      <div className="cart">
+      <Link to='/cart'>
+        <BsCartFill/>
+      </Link>
+      </div>
+      <div onClick={()=>{
+        over==='none'?setOver('overlay'):
+        setOver('none');
+      }} className="menu">
+        <BiMenu/>
+      </div>
+      <div className={over}>
+      <div className="fms">
+      <Link to='/fms'>FIND SUPPLEMENT</Link>
+      </div>
+      <div className="">
+      <Link className='' to={user===null?'/auth/login':'/account'}>
+        ACCOUNT
+      </Link>
+      </div>
+      <div className="about">
+      <a href='#about'>ABOUT US</a>
+ 
+      </div>
+
+
+
+
+      </div>
+
+
+      
+      </div>
+
 
     </div>
   )

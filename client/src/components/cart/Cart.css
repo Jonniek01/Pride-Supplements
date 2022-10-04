@@ -216,6 +216,40 @@
     text-align: center;    
 }
 
+.pop_none{
+    display: none;
+}
+.pop_show{
+    position: fixed;
+    top: 32vh;
+    left: 32vw;
+    width: 34vw;
+    height: 34vh;
+    display: flex;
+    flex-direction: column;
+    background-color:rgb(10, 10, 41);
+    color: white;
+    align-items: center;
+}
+.pop_show h3{
+    margin-top: 20px;
+    text-align: center;
+    font-size: 20px;
+}
+.pop_show button{
+    width: 150px;
+    height: 50px;
+    outline: none;
+    border: none;
+    text-align: center;
+}
+.none{
+    display: none;
+}
+.show{
+    display: block;
+}
+
 @media only screen and (max-width: 768px) {
     .shopping_cart{
         display: flex;

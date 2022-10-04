@@ -30,5 +30,18 @@ module.exports= {
                 err: err.message
             })
         }
-    } 
+    } ,
+    getCodesByIdentifier: async(req, res)=>{
+        const {code}=req.params
+        try{
+            const result= await Code.findOne({skincode:code})
+            res.json(result)
+        }
+        catch(err){
+            console.log(err)
+            res.status(500).json({
+                err: err.message
+            })
+        }
+    }
 }

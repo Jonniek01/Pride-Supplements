@@ -14,6 +14,8 @@ import { changeProduct } from "../../redux/slices/productSlice";
 
 function FMS() {
   const dispatch = useDispatch();
+  const user=JSON.parse(localStorage.getItem('user'))
+  
 
 
 
@@ -29,23 +31,20 @@ const getProducts= axios.get(url)
 useEffect(()=>{
   if(flag){
     axios.get(`http://localhost:8080/code/a/z/${code}`).then((res)=>{
+      localStorage.setItem('skincode', JSON.stringify(code));
       dispatch(changeProduct(res.data)) 
     }
 
     )
+    if(user!==null){
+      axios.put(`http://localhost:8080/users/set/${user._id}`, {code: code}).then((res)=>{
+        console.log(res)
+      })
+    }
     navigate('/sequel')
   }
-}, [code,flag, navigate, dispatch])
+}, [code,flag, navigate, dispatch, user])
 
-// const reset=()=>{
-//   let usercode='111'//got from user data
-//   axios.get(`http://localhost:8080/code/a/z/${usercode}`).then((res)=>{
-//     dispatch(changeProduct(res.data)) 
-//   }
-
-//   )
-//   navigate('/sequel')
-// }
 const handleKeyDown = event => {
   if (event.key === 'Enter') {
     console.log(search)

@@ -7,17 +7,33 @@ import { useDispatch, } from "react-redux";
 import { changeCart } from "../../redux/slices/cartSlice";
 import { useSelector } from "react-redux";
 import { useNavigate} from 'react-router-dom';
+import { ToastContainer, toast } from 'react-toastify';
 import axios from 'axios'
+import { createSerializableStateInvariantMiddleware } from '@reduxjs/toolkit';
+
 function Cart() {
+  let userCode=JSON.parse(localStorage.getItem('skincode'))
   const cart = useSelector((state) => state.cart);
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [total, setTotal]= useState(0)
   const [itemsCount, setItemCount]= useState(0)
-  const user={
-    name:"john",
-    id:"123"
-  }
+  const [pop, setPop]= useState('pop_none')
+  const[processing, setProcessing]= useState(false)
+  const user = JSON.parse(localStorage.getItem('user'))
+  const [userItems, setUserItems]= useState([])
+  const [name, setName]= useState('none')
+  
+  const notify = (err) => {
+    if(err===""){
+
+    }
+    else
+
+    toast.success(err);
+
+}
+
 
 
 useEffect(()=>{
@@ -34,7 +50,19 @@ useEffect(()=>{
   setTotal(tot)
   setItemCount(count)
 
-},[cart])
+  if(userCode!=="" && userCode!==null){
+    axios.get(`http://localhost:8080/p/codes/g/${userCode}`).then((res)=>{
+      console.log(res.data.products)
+      setName("show")
+      setUserItems(res.data.products)
+    }).catch((err)=>{
+      console.log(err)
+    })
+
+  }
+
+
+},[cart, userCode])
 
   const increment=(id,count )=>{
     const items=cart
@@ -69,19 +97,40 @@ useEffect(()=>{
   }
 
 const shipping=30;
+console.log(cart)
 
 
 const handleCheckout=()=>{
+  if(user===null){
+    setPop('pop_show')
+    return
+  }
+  else if(processing){
+    notify("Your order is being processed")
+    return
+  }
   const order={
-    user_id:user.id,
+    userid:user._id,
     items:cart,
     count:itemsCount,
+    shipping:shipping,
     total:total+shipping
   }
+  notify("Your order is being processed")
+  axios.post('http://localhost:8080/orders/', order).then(res=>{
+    notify("Your order was placed succesfully");
+    dispatch(changeCart([]))
+    setProcessing(false)
+  }).catch(err=>{
+    console.log(err)
+    notify("Something went wrong, try again later")
+  })
+  console.log(order)
 
 }
 
   return (
+    <>
     <div className='cart_container'>
       {
         cart.length===0?
@@ -116,7 +165,7 @@ const handleCheckout=()=>{
              <p>Price</p>
               </p>
               <p className='total'>Total</p>
-              <p>Matching</p>
+              <p className={name}>Matching</p>
               <button onClick={()=>{
                 removeAll()
               }} className='remove remove_all'>Remove all</button>
@@ -152,7 +201,7 @@ const handleCheckout=()=>{
               {item.price}
               </p>
               <p className='total'>{item.price*item.count}</p>
-              <p>Matched</p>
+              <p style={userItems.includes(item.identifier)?{color:"green"}:{"color":"red"}} className={name}>{userItems.includes(item.identifier)?"Matched":"Mismatched"}</p>
               <button onClick={()=>{
                 remove(item.id)
               }} className='remove'>Remove</button>
@@ -198,6 +247,26 @@ const handleCheckout=()=>{
       }
         <Footer/>
     </div>
+    <div className={pop}>
+      <h3>Please log in to continue</h3>
+      <button className='' onClick={()=>{navigate('/auth/login')}}>Login</button>
+
+    </div>
+    <ToastContainer
+    className={'toast'}
+        style={{width:"300px", height:"50px"}}
+        position="top-center"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        />
+        </>
+
   )
 }
 

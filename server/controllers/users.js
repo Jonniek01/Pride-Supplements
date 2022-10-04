@@ -52,4 +52,17 @@ module.exports = {
             res.status(500).json({'message':err.message})
         }
     },
+    setCode: async (req, res)=>{
+        const {code} = req.body;
+        const {id} = req.params;
+        console.log(code, id)
+
+        try{
+            const result = await User.findByIdAndUpdate(id, {skincode:code});
+            res.json(result);
+        }
+        catch(err){
+            res.status(500).json({'message':err.message})
+        }
+    }
 }

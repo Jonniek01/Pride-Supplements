@@ -70,6 +70,10 @@ Content-Type: application/json
 GET http://localhost:8080/p/codes/g
 
 ###
+GET http://localhost:8080/p/codes/g/111
+
+
+###
 GET http://localhost:8080/code/a/z/1010
 
 ###
@@ -85,5 +89,34 @@ Content-Type: application/json
 {
    "email":"test@ail.com",
     "password":"test"
+}
+###
+POST http://localhost:8080/orders/
+Content-Type: application/json
+
+{
+   "userid":"oiuytfgjhkjlk;oijouhigyutfyr",
+    "items":[
+        {
+            "productid":"6322af7cb6cfb9a17bedb540",
+            "quantity":1
+        },
+        {
+            "productid":"6322af7cb6cfb9a17bedb541",
+            "quantity":1
+        }
+    ],
+    "total": 1000,
+    "count": 2,
+    "shipping": 100
+}
+
+###
+
+PUT http://localhost:8080/users/set/633a6b1dc1a7e9a85871a640
+Content-Type: application/json
+
+{
+    "code":"14440"
 }
 

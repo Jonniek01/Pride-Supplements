@@ -43,6 +43,7 @@ function ProductPage() {
       name:product.name,
       count:count,
       price:product.price,
+      identifier:product.identifier
     }
     if(cart.length===0){
       console.log("length",cart.length)

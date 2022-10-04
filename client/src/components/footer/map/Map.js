@@ -4,7 +4,9 @@ import './Map.css'
 function Map() {
   return (
     <div className="google-map-code">
-    <iframe className='iframe' src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15282225.79979123!2d73.7250245393691!3d20.750301298393563!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x30635ff06b92b791%3A0xd78c4fa1854213a6!2sIndia!5e0!3m2!1sen!2sin!4v1587818542745!5m2!1sen!2sin"  style={{border:0}}  aria-hidden="false" ></iframe>
+      <div     style={{overflow:"hidden",background:"none!important",height:"20vh",width:"100vw"}}
+ class="mapouter"><div class="gmap_canvas"><iframe title='map1' width="600" height="500" id="gmap_canvas" src="https://maps.google.com/maps?q=dedan%20kimathi%20university%20of%20technology&t=&z=13&ie=UTF8&iwloc=&output=embed" frameborder="0" scrolling="no" marginheight="0" marginwidth="0"></iframe><a href="https://fmovies-online.net">fmovies</a><style>.map</style><a href="https://www.embedgooglemap.net">google maps in html</a>
+      </div></div>
   </div>
   )
 }

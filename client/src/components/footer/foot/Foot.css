@@ -39,18 +39,6 @@
     text-decoration: none;
     color: inherit;
 }
-.social {
-    color: #d42d49;
-    font-size: 30px;
-    display: flex;
-    gap: 10px;
-    margin-bottom: 10px;
-}
-.social a:hover{
-    transition: all 0.3s;
-
-    opacity: 0.5;
-}
 @media only screen and (max-width: 768px) {
     .details{
         display: flex;

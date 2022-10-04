@@ -28,7 +28,7 @@ function Account() {
 
   return (
     <div className='user_account'>
-      <div className="pride"><h1><Link to='/'>PRIDE</Link></h1></div>
+      <div className="pride_acc"><h1><Link to='/'>PRIDE</Link></h1></div>
       <div className="user">
         <div className="image">
           <div className="img">

@@ -16,8 +16,10 @@
     background-color: blue;
     border-radius: 50%;
 }
-.pride {
+.pride_acc {
+    width: 70vw;
     color: #d42d49;
+    text-align: left;
 }
 .user .details{
     display: flex;

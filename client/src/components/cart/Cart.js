@@ -9,7 +9,6 @@ import { useSelector } from "react-redux";
 import { useNavigate} from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import axios from 'axios'
-import { createSerializableStateInvariantMiddleware } from '@reduxjs/toolkit';
 
 function Cart() {
   let userCode=JSON.parse(localStorage.getItem('skincode'))
@@ -145,14 +144,14 @@ const handleCheckout=()=>{
         </div>
         :
         <div className='shopping_cart'>
-          <div className="items">
+          <div className="cart_items">
             <div className="items_head">
               <h3>Shopping cart</h3>
               <p>{itemsCount} Items</p>
             </div>
             <p className="line"></p>
             <div className="items_body">
-            <div className='item'>
+            <div className='cart_item'>
                     <div className="_image">
                       <p>Image</p>
 
@@ -175,7 +174,7 @@ const handleCheckout=()=>{
 
               {
                 cart.map((item)=>{
-                  return <div key={item.id} className='item'>
+                  return <div key={item.id} className='cart_item'>
                     <div className="image">
                     <img src={item.image} alt={item.name} />
 

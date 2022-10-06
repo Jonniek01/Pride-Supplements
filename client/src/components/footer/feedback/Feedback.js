@@ -1,6 +1,5 @@
 import React from 'react'
 import './Feedback.css'
-import { useNavigate, Link } from 'react-router-dom'
 import { useState } from 'react'
 import axios from 'axios'
 import { ToastContainer, toast } from 'react-toastify';
@@ -9,7 +8,6 @@ import { ToastContainer, toast } from 'react-toastify';
 
 
 function Feedback() {
-  const navigate=useNavigate()
   const [form, setForm]=useState({
     name:'',
     email:'',
@@ -54,7 +52,7 @@ const onUpdateField = e => {
             <input onChange={onUpdateField} name="name" type="text" placeholder="Name"/>
             <input onChange={onUpdateField} name="email" type="text" placeholder="Email"/>
 
-            <textarea onChange={onUpdateField} name="content" id="" cols="30" rows="10"></textarea>
+            <textarea placeholder='Message' onChange={onUpdateField} name="content" id="" cols="30" rows="5"></textarea>
             <div className="send">
                 <button  type='submit'>SEND</button>
             </div>

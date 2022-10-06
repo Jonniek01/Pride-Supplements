@@ -119,4 +119,13 @@ Content-Type: application/json
 {
     "code":"14440"
 }
+###
+POST http://localhost:8080/feedback
+Content-Type: application/json
+
+{
+   "email":"test@ail.com",
+    "name":"test",
+    "content":"test"
+}
 

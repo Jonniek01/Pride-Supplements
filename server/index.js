@@ -7,6 +7,8 @@ const { users } = require('./routes/users');
 const { images } = require('./routes/images');
 const { codes } = require("./routes/codes");
 const { orders } = require("./routes/orders");
+const { feedback } = require("./routes/feedback");
+
 
 
 
@@ -28,6 +30,8 @@ app.use('/users',users);
 app.use('/images',images);
 app.use('/p/codes/g',codes);
 app.use('/orders',orders);
+app.use('/feedback',feedback);
+
 
 
 

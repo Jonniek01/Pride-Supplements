@@ -32,7 +32,8 @@ useEffect(()=>{
   if(flag){
     axios.get(`http://localhost:8080/code/a/z/${code}`).then((res)=>{
       localStorage.setItem('skincode', JSON.stringify(code));
-      dispatch(changeProduct(res.data)) 
+      dispatch(changeProduct(res.data))
+
     }
 
     )
@@ -51,7 +52,7 @@ const handleKeyDown = event => {
     console.log('Enter key pressed ✅');
     getProducts.then((response)=>{
       dispatch(changeProduct(response.data))  ;
-      navigate('/')
+      navigate(`/result/${search}`)
     })
     .catch((err)=>{
       console.log(err)

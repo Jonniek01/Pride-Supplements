@@ -1,23 +1,35 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import './Navbar.css'
-import { Link, Navigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { AiOutlineSearch } from 'react-icons/ai';
 import { BsCartFill } from 'react-icons/bs';
 import { FcBusinesswoman } from 'react-icons/fc';
 import { BiMenu } from 'react-icons/bi';
+import { changeCount } from "../../redux/slices/countSlice";
+
 
 import axios from "axios";
 import { useDispatch, } from "react-redux";
 import { changeProduct } from "../../redux/slices/productSlice";
 import { useState } from 'react';
+import { useSelector } from "react-redux";
+
+
 
 function Navbar() {
+  const navigate = useNavigate()
   const dispatch = useDispatch();
+  const count = useSelector((state) => state.count);
+  const cart = useSelector((state) => state.cart);
+
+
   const url=`http://localhost:8080/1/9`
   const [search, setSearch] = useState("");
   const getProducts= axios.get(url)
   const user=localStorage.getItem('user')
   const [over, setOver] = useState('none')
+  const [itemsCount, setItemsCount]= useState(0)
+
 
 
   const reset=()=>{
@@ -38,16 +50,31 @@ function Navbar() {
       const url=`http://localhost:8080/products/search/${search}`
       axios.get(url).then((response)=>{
         dispatch(changeProduct(response.data)) 
+        navigate(`/result/${search}`)
+        
       })
       .catch((err)=>{
         console.log(err)
   
       });;
-      Navigate('/') 
+      navigate('/') 
 
   
     }
   }
+  useEffect(()=>{
+    let items=cart;
+    let i =0;
+    let count=0
+    for(i;i<items.length;i++){
+        count=count+items[i].count
+  
+    }
+    setItemsCount(count)
+    dispatch(changeCount(itemsCount))
+  
+  }, [cart, dispatch, itemsCount])
+
   return (
     <div className='navbar'>
       <div className="navdesk">
@@ -79,7 +106,7 @@ function Navbar() {
       </div>
       <div className="cart">
       <Link to='/cart'>
-        <BsCartFill/>
+      <div className='cart_dv'><BsCartFill/><div className='cart_span' >{count}</div></div>
       </Link>
       </div>
       <div className="account">
@@ -97,13 +124,16 @@ function Navbar() {
           <input
           onKeyDown={handleKeyDown}
            onChange={(e) => {
-            setSearch(e.target.value)
+
+
+            setSearch(e.target.value);
+      
         }} type={'text'} placeholder='Search...'/>
         </div>
       </div>
       <div className="cart">
       <Link to='/cart'>
-        <BsCartFill/>
+        <div className='cart_dv'><BsCartFill/><div className='cart_span' style={{backgroundColor:"white", color:'pink'}} >{count}</div></div>
       </Link>
       </div>
       <div onClick={()=>{

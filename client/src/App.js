@@ -15,6 +15,7 @@ import { changeProduct } from "./redux/slices/productSlice";
 import Auth from './components/auth/Auth';
 import Login from './components/auth/login/Login';
 import SignUp from './components/auth/signup/SignUp';
+import Result from './components/result/Result';
 
 
 function App() {
@@ -44,6 +45,8 @@ function App() {
         <Route path='/cart' element={<Cart/>} />
         <Route path='/account' element={<Account/>} />
         <Route path='/sequel' element={<Sequel/>}/>
+        <Route path='/result/:search' element={<Result/>}/>
+
         <Route path='/products/:id' element={<ProductPage/>}/>
         <Route path='/auth' element={<Auth/>}>
           <Route index path='/auth/login' element={<Login/>}/>

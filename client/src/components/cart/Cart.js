@@ -5,6 +5,8 @@ import { AiOutlineArrowLeft } from 'react-icons/ai';
 import { useState } from 'react';
 import { useDispatch, } from "react-redux";
 import { changeCart } from "../../redux/slices/cartSlice";
+import { changeCount } from "../../redux/slices/countSlice";
+
 import { useSelector } from "react-redux";
 import { useNavigate} from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
@@ -48,6 +50,8 @@ useEffect(()=>{
   }
   setTotal(tot)
   setItemCount(count)
+  dispatch(changeCount(count))
+
 
   if(userCode!=="" && userCode!==null){
     axios.get(`http://localhost:8080/p/codes/g/${userCode}`).then((res)=>{
@@ -61,7 +65,7 @@ useEffect(()=>{
   }
 
 
-},[cart, userCode])
+},[cart, dispatch, userCode])
 
   const increment=(id,count )=>{
     const items=cart

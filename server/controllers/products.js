@@ -18,7 +18,8 @@ module.exports = {
                         limit:limit
                     }
                 try{
-                    const result = await Product.find({},{},query)
+                    const result = await Product.aggregate([{ $sample: { size: 9 } }])
+                    // const result = await Product.find({},{},query)
                     res.status(200).json(result)
                     }
                     catch(err){
@@ -108,6 +109,22 @@ module.exports = {
         }
 
 
-    }
+    },
+    searchByCategory: async (req, res)=>{
+        const {category, query}=req.params;
+        console.log("searching", query)
 
+        try{
+            const items= await Product.find({ $text: { $search: query }, category:category });
+            res.json(items)
+
+        }
+        catch(err){
+            res.status(500).json({
+                "Error":err.message
+            })
+
+        }
+
+},
 }

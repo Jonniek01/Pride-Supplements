@@ -23,12 +23,14 @@ const navigate=useNavigate();
 const [code, setCode] = useState('')
 const [flag, setFlag] = useState(false)
 const [search, setSearch] = useState("");
+const [optionsState, setOptionsState] = useState('');
 const url=`http://localhost:8080/products/search/${search}`
 const getProducts= axios.get(url)
 
 
 
 useEffect(()=>{
+  console.log(optionsState)
   if(flag){
     axios.get(`http://localhost:8080/code/a/z/${code}`).then((res)=>{
       localStorage.setItem('skincode', JSON.stringify(code));
@@ -44,7 +46,7 @@ useEffect(()=>{
     }
     navigate('/sequel')
   }
-}, [code,flag, navigate, dispatch, user])
+}, [code, flag, navigate, dispatch, user, optionsState])
 
 const handleKeyDown = event => {
   if (event.key === 'Enter') {
@@ -65,11 +67,26 @@ const handleKeyDown = event => {
 
 const SEARCH=<div className='fms_div'>
 <p>Enter a key word or the name of your product to search</p>
-<input className='search_box'
+<div className='search_box'>
+<select onChange={(e)=>{
+  setOptionsState(e.target.value)
+
+}} value={optionsState}>
+  <option value="moisturizers">Moisturizers</option>
+  <option value="cleansers">Cleansers</option>
+  <option value="facemasks">Face Masks</option>
+  <option value="toners">Toners</option>
+  <option value="combo">Combo</option>
+
+
+</select>
+<input 
           onKeyDown={handleKeyDown}
            onChange={(e) => {
             setSearch(e.target.value)
         }} type={'text'} placeholder='Search...'/>
+
+</div>
 </div>
 
 

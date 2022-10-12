@@ -37,23 +37,24 @@ POST http://localhost:8080/
 Content-Type: application/json
 
 
-{ "identifier":
-    "M08"
+{ 
+    # "identifier":
+    # "T09"
     ,
     "name":
-    "BLK/OPL SKN™ EVEN TRUE Nutritive Skin Moisturizer"
-    ,
+    "-Pixi by Petra Glow Tonic"
+,
     "price":
-    899
+    400
     ,
     "image":
-    "https://prideimages.s3.amazonaws.com/moisturizers/M08.png"
-          ,
+            "https://prideimages.s3.amazonaws.com/facemasks/T09.png"   
+      ,
     "description":
-    "Fortified with a proprietary blend of brightening peptides and natural citrus extracts to improve skin's radiance and reverse hyper-pigmentation. Enriched with nourishing African-origin oils and butters that help skin retain moisture and protect against environmental damage."
-          ,
-    "category":
-    "moisturizers"
+    "Pixi by Petra Glow Tonic for as long as we have, you know it's basically magic in a bottle. It's made with hero ingredients — such as glycolic acid, aloe vera, and witch hazel — to minimize the appearance of dark spots and promote clearer, softer skin"
+,
+  "category":
+    "toners"
 }
 
 ###
@@ -128,4 +129,9 @@ Content-Type: application/json
     "name":"test",
     "content":"test"
 }
+
+###
+GET http://localhost:8080/products/search/cleansers/acid
+###
+
 

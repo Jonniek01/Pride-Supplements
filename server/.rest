@@ -131,7 +131,14 @@ Content-Type: application/json
 }
 
 ###
-GET http://localhost:8080/products/search/cleansers/acid
+GET http://localhost:8080/products/search//acid
 ###
+
+POST http://localhost:8080/filters/categories
+Content-Type: application/json
+
+{
+   "categories":["toners","moisturizers","cleansers","masks","serums","exfoliators","sunscreen","lipcare","eye","acids","tools","sets"]
+}
 
 

@@ -127,4 +127,36 @@ module.exports = {
         }
 
 },
+filterByCategory: async (req, res)=>{
+    const {category}=req.params;
+    console.log("searching", category)
+
+    try{
+        const items= await Product.find({category:category });
+        res.json(items)
+
+    }
+    catch(err){
+        res.status(500).json({
+            "Error":err.message
+        })
+
+    }
+},
+filterByCategories: async (req, res)=>{
+    const {categories}=req.body;
+    console.log("searching", categories)
+
+    try{
+        const items= await Product.find({category:{$in:categories} });
+        res.json(items)
+
+    }
+    catch(err){
+        res.status(500).json({
+            "Error":err.message
+        })
+
+    }
+},
 }

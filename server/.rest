@@ -140,5 +140,14 @@ Content-Type: application/json
 {
    "categories":["toners","moisturizers","cleansers","masks","serums","exfoliators","sunscreen","lipcare","eye","acids","tools","sets"]
 }
+###
 
+post http://localhost:8080/orders/o/o/o/get-auth-token
+Content-Type: application/json
+
+{
+    "phone":"254742734120",
+    "amount":1,
+    "reference":"254742734120"
+}
 

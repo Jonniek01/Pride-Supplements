@@ -1,6 +1,6 @@
 import './App.css';
 import React from 'react'
-import { Routes, Route, useNavigate } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 import Main from './components/main/Main';
 import Admin from './components/admin/Admin';
 import FMS from './components/FMS/FMS';
@@ -45,7 +45,7 @@ function App() {
         <Route path='/cart' element={<Cart/>} />
         <Route path='/account' element={<Account/>} />
         <Route path='/sequel' element={<Sequel/>}/>
-        <Route path='/result/:search' element={<Result/>}/>
+        <Route path='/result/:category/:search' element={<Result/>}/>
 
         <Route path='/products/:id' element={<ProductPage/>}/>
         <Route path='/auth' element={<Auth/>}>

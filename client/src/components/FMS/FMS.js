@@ -7,6 +7,8 @@ import { AiOutlineArrowLeft } from 'react-icons/ai';
 import { AiOutlineClose } from 'react-icons/ai';
 import { useDispatch } from "react-redux";
 import { changeProduct } from "../../redux/slices/productSlice";
+import { BsSearch } from 'react-icons/bs';
+
 
 
 
@@ -23,9 +25,7 @@ const navigate=useNavigate();
 const [code, setCode] = useState('')
 const [flag, setFlag] = useState(false)
 const [search, setSearch] = useState("");
-const [optionsState, setOptionsState] = useState('');
-const url=`http://localhost:8080/products/search/${search}`
-const getProducts= axios.get(url)
+const [optionsState, setOptionsState] = useState('all');
 
 
 
@@ -48,30 +48,39 @@ useEffect(()=>{
   }
 }, [code, flag, navigate, dispatch, user, optionsState])
 
-const handleKeyDown = event => {
-  if (event.key === 'Enter') {
-    console.log(search)
-    console.log('Enter key pressed ✅');
-    getProducts.then((response)=>{
+const handleSearch = event => {
+  try{
+    if(optionsState==='all'){
+      axios.get(`http://localhost:8080/products/search/${search}`).then((res)=>{
+        dispatch(changeProduct(res.data))
+        navigate(`/result/${optionsState}/${search}`)
+
+      })
+    
+    }
+    axios.get(`http://localhost:8080/products/search/${optionsState}/${search}`).then((response)=>{
       dispatch(changeProduct(response.data))  ;
-      navigate(`/result/${search}`)
+      navigate(`/result/${optionsState}/${search}`)
     })
-    .catch((err)=>{
-      console.log(err)
-
-    });;
-
+  
 
   }
+  catch(err){
+    console.log(err)
+
+  };
+
+
 }
 
 const SEARCH=<div className='fms_div'>
 <p>Enter a key word or the name of your product to search</p>
 <div className='search_box'>
-<select onChange={(e)=>{
+<select className='select' onChange={(e)=>{
   setOptionsState(e.target.value)
 
 }} value={optionsState}>
+    <option value="all">All</option>
   <option value="moisturizers">Moisturizers</option>
   <option value="cleansers">Cleansers</option>
   <option value="facemasks">Face Masks</option>
@@ -81,12 +90,20 @@ const SEARCH=<div className='fms_div'>
 
 </select>
 <input 
-          onKeyDown={handleKeyDown}
+          onKeyDown={(e)=>{
+            e.key==='Enter' && handleSearch()          
+          }}
            onChange={(e) => {
             setSearch(e.target.value)
         }} type={'text'} placeholder='Search...'/>
+        <div onClick={()=>{handleSearch()}} className="search_icon">
+        <BsSearch  />
+
+        </div>
+
 
 </div>
+
 </div>
 
 

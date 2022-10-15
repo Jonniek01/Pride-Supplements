@@ -28,7 +28,7 @@ class MpesaController {
             return next();
 
         }catch(err){
-            console.log(err)
+            console.log(err.message)
 
             return res.send({
                 success:false,

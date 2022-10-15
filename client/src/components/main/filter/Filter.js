@@ -39,6 +39,10 @@ function Filter() {
         }
    }
 
+const popFilter=(filter)=>{
+  setFilters(filters.filter((item)=>item!==filter))
+
+}
   return (
     <div className='filter'>
         <div className="filter_container">
@@ -69,7 +73,7 @@ function Filter() {
 
                     </div>
                     <p className="vert"></p>
-                    <div className="close_x"><p>X</p></div>
+                    <div onClick={()=>{popFilter(filter)}} className="close_x"><p>X</p></div>
                     </div>
                 ))
               }

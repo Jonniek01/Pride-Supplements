@@ -12,7 +12,7 @@ import './Footer.css'
 
 function Footer() {
   return (
-    <div className='footer'>
+    <div className='Footer'>
       <Map/>
       <Foot/>
       <Feedback/>

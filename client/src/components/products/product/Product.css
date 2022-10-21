@@ -7,9 +7,6 @@
 
 
 }
-.product div {
-    /* width: 100%; */
-}
 .product .image{
     background-color: #ee405d;
     width: 100%;
@@ -55,6 +52,6 @@
     cursor: pointer;
 
 }
-.product .add buttons:hover{
+.product .add:hover{
     background-color: rgb(205, 217, 228);
 }

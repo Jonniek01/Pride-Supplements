@@ -1,12 +1,14 @@
 import React from 'react'
-import './Map.css'
 
 function Map() {
   return (
-    <div className="google-map-code">
-      <div     style={{overflow:"hidden",background:"none!important",height:"20vh",width:"100vw"}}
- class="mapouter"><div class="gmap_canvas"><iframe title='map1' width="600" height="500" id="gmap_canvas" src="https://maps.google.com/maps?q=dedan%20kimathi%20university%20of%20technology&t=&z=13&ie=UTF8&iwloc=&output=embed" frameborder="0" scrolling="no" marginheight="0" marginwidth="0"></iframe><a href="https://fmovies-online.net">fmovies</a><style>.map</style><a href="https://www.embedgooglemap.net">google maps in html</a>
-      </div></div>
+    <div className="App">
+<iframe title='map'
+ src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d142285.7254130329!2d36.97059890367921!3d-0.3175660434075864!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x1828677a4955ff13%3A0x7ae4dae9615396a6!2sDEDAN%20KIMATHI%20UNIVERSITY%20OF%20TECHNOLOGY!5e1!3m2!1sen!2ske!4v1666330678213!5m2!1sen!2ske"
+    style={{width:"100vw",height:"30vh",border:"0"}}
+     loading="lazy" 
+     referrerpolicy="no-referrer-when-downgrade">
+      </iframe>
   </div>
   )
 }

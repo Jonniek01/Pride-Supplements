@@ -138,7 +138,7 @@ const handleCheckout=()=>{
       {
         cart.length===0?
           <div className="cart_empty">
-          <h1>Your cart is empty</h1>
+          <p>Empty</p>
           <p className='back' onClick={()=>{
             navigate(-1)
           }}><AiOutlineArrowLeft/> Go back</p>

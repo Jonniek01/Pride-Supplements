@@ -50,7 +50,7 @@ function Navbar() {
       const url=`http://localhost:8080/products/search/${search}`
       axios.get(url).then((response)=>{
         dispatch(changeProduct(response.data)) 
-        navigate(`/result/${search}`)
+        navigate(`/result/all/${search}`)
         
       })
       .catch((err)=>{

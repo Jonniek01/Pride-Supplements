@@ -1,18 +1,18 @@
 const express = require('express');
 const orders = express.Router();
 const  {makeOrder} = require ('../controllers/orders');
-const mpesa = require('../controllers/mpesa');
+const {getOAuthToken, lipaNaMpesaOnline, lipaNaMpesaOnlineCallback} = require('../middleware/mpesa');
 
 
-orders.post('/', makeOrder);
+orders.post('/', getOAuthToken, lipaNaMpesaOnline,lipaNaMpesaOnlineCallback, makeOrder);
 //route to get the auth token
-orders.post('/o/o/o/get-auth-token',mpesa.getOAuthToken);
+orders.get('/get-auth-token',getOAuthToken);
 
 //lipa na mpesa online 
-orders.post('/lipa-na-mpesa',mpesa.getOAuthToken,mpesa.lipaNaMpesaOnline);
+orders.post('/lipa-na-mpesa',getOAuthToken,lipaNaMpesaOnline);
 
 //callback url
-orders.post('/lipa-na-mpesa-callback',mpesa.lipaNaMpesaOnlineCallback);
+orders.post('/lipa-na-mpesa-callback',lipaNaMpesaOnlineCallback);
 
 
 module.exports = {orders};

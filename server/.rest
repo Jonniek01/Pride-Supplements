@@ -1,3 +1,5 @@
+GET http://localhost:8080
+###
 //All products
 # GET http://localhost:8080/:page/:limit
 GET http://localhost:8080/1/1
@@ -145,11 +147,48 @@ Content-Type: application/json
 POST http://localhost:8080/orders/get-auth-token
 
 ###
-POST http://localhost:8080/orders/lipa-na-mpesa
+POST http://localhost:8080/orders/makeorder
 Content-Type: application/json
 
 {
     "phone":"254742734120",
     "amount":1,
     "reference":"254742734120"
+}
+###
+POST http://localhost:8080/orders/mpesa/confirmation
+Content-Type: application/json
+
+{
+    "Body":{
+        "stkCallback":{
+            "MerchantRequestID":"1",
+            "CheckoutRequestID":"ws_CO_210520201000000000",
+            "ResultCode":0,
+            "ResultDesc":"The service request is processed successfully.",
+            "CallbackMetadata":{
+                "Item":[
+                    {
+                        "Name":"Amount",
+                        "Value":1
+                    },
+                    {
+                        "Name":"MpesaReceiptNumber",
+                        "Value":"LQ2KX2X4Z7"
+                    },
+                    {
+                        "Name":"Balance"
+                    },
+                    {
+                        "Name":"TransactionDate",
+                        "Value":20200521094501
+                    },
+                    {
+                        "Name":"PhoneNumber",
+                        "Value":254742734120
+                    }
+                ]
+            }
+        }
+    }
 }

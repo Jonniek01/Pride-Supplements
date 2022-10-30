@@ -54,7 +54,7 @@ useEffect(()=>{
 
 
   if(userCode!=="" && userCode!==null){
-    axios.get(`http://localhost:8080/p/codes/g/${userCode}`).then((res)=>{
+    axios.get(`https://prideserver.herokuapp.com/p/codes/g/${userCode}`).then((res)=>{
       console.log(res.data.products)
       setName("show")
       setUserItems(res.data.products)
@@ -113,14 +113,18 @@ const handleCheckout=()=>{
     return
   }
   const order={
-    userid:user._id,
-    items:cart,
-    count:itemsCount,
-    shipping:shipping,
-    total:total+shipping
-  }
+    "userId":user._id,
+    "name":user.name,
+    "phone":user.contact.phone,
+    "email":user.contact.email,
+    "count":itemsCount,
+    "shipping":shipping,
+    "total":total,
+    "items":cart
+}
+
   notify("Your order is being processed")
-  axios.post('http://localhost:8080/orders/', order).then(res=>{
+  axios.post('https://prideserver.herokuapp.com/orders/makeorder', order).then(res=>{
     notify("Your order was placed succesfully");
     dispatch(changeCart([]))
     setProcessing(false)

@@ -19,7 +19,7 @@ function Admin() {
       <div className="container">
 
       <div className="left_container">
-        <h4><Link to='/'>Pride</Link></h4>
+        <h4><Link to='/'>Pride Admin</Link></h4>
         <div className="content">
           <div>
             <Link to='/admin/dashboard'><MdSpaceDashboard/><p>Dashboard</p></Link>

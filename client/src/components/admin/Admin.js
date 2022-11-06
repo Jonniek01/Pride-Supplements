@@ -19,7 +19,7 @@ function Admin() {
       <div className="container">
 
       <div className="left_container">
-        <h4><Link to='/'>Pride Admin</Link></h4>
+        <h4><Link to='/'>Pride</Link></h4>
         <div className="content">
           <div>
             <Link to='/admin/dashboard'><MdSpaceDashboard/><p>Dashboard</p></Link>
@@ -28,7 +28,7 @@ function Admin() {
             <Link to='/admin/orders'><AiOutlineShoppingCart/><p>Orders</p></Link>
           </div>
           <div>
-            <Link to='/admin/statistics'><FiPieChart/><p>Statistics</p></Link>
+            <Link to='/admin/customers'><FiPieChart/><p>Customers</p></Link>
           </div>
           <div>
             <Link to='/admin/products'><RiProductHuntFill/><p>Products</p></Link>

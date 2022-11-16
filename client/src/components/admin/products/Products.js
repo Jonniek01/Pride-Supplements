@@ -6,12 +6,16 @@ import axios from 'axios';
 import {Link} from 'react-router-dom'
 import AddSearch from '../addsearch/AddSearch'
 import AddForm from './addform/AddForm';
+import EditForm from './editform/EditForm';
+
 
 
 function Products() {
   let page=1;
   let limit=10;
-  const [classname, setClassname]=useState('none')
+  const [classnameAdd, setClassnameAdd]=useState('none')
+  const [classnameEdit, setClassnameEdit]=useState('none')
+
 
   const [products, setProducts] = useState([])
   useEffect(()=>{
@@ -23,7 +27,10 @@ function Products() {
   },[page, limit])
   const addProductClick=(e)=>{
 
-    classname==='none'?setClassname('add_form'):setClassname('none');
+    classnameAdd==='none'?setClassnameAdd('add_form'):setClassnameAdd('none');
+  }
+  const editProductClick=(e)=>{
+    classnameEdit==='none'?setClassnameEdit('edit_form'):setClassnameEdit('none');
   }
   const searchProduct=(e)=>{
     console.log(e.target.value)
@@ -88,11 +95,13 @@ function Products() {
   
                 </div>
                 <div className="edit">
-                  <button>Edit</button>
+                  <button onClick={editProductClick}>Edit</button>
                 </div>
                 <div className="rm">
                   <button>Remove</button>
                 </div>
+                <EditForm action={editProductClick} classname={classnameEdit} product={product}/>
+
                </div>
   
               })
@@ -100,7 +109,8 @@ function Products() {
              
 
     </div>
-    <AddForm action={addProductClick} classname={classname}/>
+    <AddForm action={addProductClick} classname={classnameAdd}/>
+    
     </>
 
   )

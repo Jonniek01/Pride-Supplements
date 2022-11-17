@@ -7,6 +7,7 @@ import {Link} from 'react-router-dom'
 import AddSearch from '../addsearch/AddSearch'
 import AddForm from './addform/AddForm';
 import EditForm from './editform/EditForm';
+import Confirm from './confirm/Confirm';
 
 
 
@@ -15,6 +16,8 @@ function Products() {
   let limit=10;
   const [classnameAdd, setClassnameAdd]=useState('none')
   const [classnameEdit, setClassnameEdit]=useState('none')
+  const [confirm, setConfirm]= useState('none')
+  const [item, setProduct] = useState([]);
 
 
   const [products, setProducts] = useState([])
@@ -40,6 +43,10 @@ function Products() {
     })
   }
 
+const confirmDelete = ()=>{
+  confirm==='none'?setConfirm('confirm'):setConfirm('none')
+ 
+}
   return (
     <>
      <AdminNav title={'Products'}/>
@@ -95,12 +102,11 @@ function Products() {
   
                 </div>
                 <div className="edit">
-                  <button onClick={editProductClick}>Edit</button>
+                  <button onClick={()=>{setProduct(product);editProductClick();}}>Edit</button>
                 </div>
                 <div className="rm">
-                  <button>Remove</button>
+                  <button onClick={()=>{setProduct(product);confirmDelete();}}>Remove</button>
                 </div>
-                <EditForm action={editProductClick} classname={classnameEdit} product={product}/>
 
                </div>
   
@@ -110,6 +116,10 @@ function Products() {
 
     </div>
     <AddForm action={addProductClick} classname={classnameAdd}/>
+   <EditForm action={editProductClick} className={classnameEdit} classname={classnameEdit} product={item}/>
+   <Confirm action={confirmDelete} id={item._id} classname={confirm}/>
+
+
     
     </>
 

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import './EditForm.css'
 import { useState } from 'react'
 import axios from 'axios';
@@ -8,14 +8,24 @@ import { ToastContainer, toast } from 'react-toastify';
 
 function EditForm({action,classname,product}) {
     const initialForm = {
+        name:"",
+        price:"",
+        image:  "",
+        description:"",
+        category:"",
+        identifier:""
+    }
+    const [form, setForm]=useState(initialForm);
+    useEffect(()=>{
+      setForm({
         name:product.name,
         price:product.price,
         image:  product.image,
         description:product.description,
         category:product.category,
         identifier:product.identifier
-    }
-    const [form, setForm]=useState(initialForm);
+    })
+    },[product])
     const handleChange = e => {
         const nextFormState = {
           ...form,
@@ -41,11 +51,17 @@ function EditForm({action,classname,product}) {
 
         
 
-
         axios.put(`https://prideserver.herokuapp.com/${product._id}`,form).then((res)=>{
             console.log(res)
-            setForm(initialForm)
-            toast.success("Product added");
+            setForm({
+              name:"",
+              price:"",
+              image:"",
+              description:"",
+              category:"",
+              identifier:""
+            })
+            toast.success("Product Updated");
         })
         .catch((err)=>{
             toast.error("Error, try again");
@@ -57,6 +73,7 @@ function EditForm({action,classname,product}) {
 
 
       }
+      console.log("form",form);
 
       const [errors, setErrors] = useState({
         name:"",
@@ -119,10 +136,12 @@ function EditForm({action,classname,product}) {
 
         </div>
         <div>
-            <input value={form.name}  name='name' onChange={(e)=>{
+            <input value={form.name} name='name' onChange={(e)=>{
                 handleChange(e);
                 validateForm(e.target.name,e.target.value)
-            } } placeholder={product.name} type="text" />
+            } } 
+            placeholder={form.name} 
+            type="text" />
             <div style={{color:"red"}} className="error">{errors.name}</div>
         </div>
         <div>

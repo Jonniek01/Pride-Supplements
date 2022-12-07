@@ -11,7 +11,8 @@ function Feedback() {
   const [form, setForm]=useState({
     name:'',
     email:'',
-    content:'',
+    product:'',
+    message:'',
 });
 const notify = () => {
   toast.success("Feedback sent");
@@ -28,7 +29,7 @@ const onUpdateField = e => {
   };
   const onSubmitForm = e => {
     e.preventDefault();
-      axios.post('https://prideserver.herokuapp.com/feedback', form).then(
+      axios.post('http://localhost:8080/feedback', form).then(
         (res)=>{
           notify();
         }
@@ -51,8 +52,10 @@ const onUpdateField = e => {
         <form onSubmit={onSubmitForm}>
             <input onChange={onUpdateField} name="name" type="text" placeholder="Name"/>
             <input onChange={onUpdateField} name="email" type="text" placeholder="Email"/>
+            <input onChange={onUpdateField} name="product" type="text" placeholder="Product you are reviewing"/>
 
-            <textarea placeholder='Message' onChange={onUpdateField} name="content" id="" cols="30" rows="5"></textarea>
+          
+            <textarea placeholder='Message' onChange={onUpdateField} name="message" id="" cols="30" rows="5"></textarea>
             <div className="send">
                 <button  type='submit'>SEND</button>
             </div>

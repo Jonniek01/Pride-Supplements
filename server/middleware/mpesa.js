@@ -2,74 +2,54 @@
 /* eslint-disable no-unused-vars */
 const axios = require("axios");
 const Confirmation = require("../models/Confirmation");
-const consumer_key = process.env.CONSUMER_KEY;
-const consumer_secret = process.env.CONSUMER_SECRET;
+const consumer_key ='Kwcd2IVBBGNJfwXGjKM4rwFjR8fsPymp';
+const consumer_secret = 'kGfnbLkemdtv2M6W';
 const token_url = process.env.TOKEN_URL;
 const express_url = process.env.EXPRESS_URL;
 const tillNumber = process.env.TILL_NUMBER;
 const passKey = process.env.PASS_KEY;
 
 
-    // const passwordEncrypt = (till, key, stamp) => {
-    //     return new Buffer.from(till + key + stamp).toString("base64");
-    //   };
-      
-    const correspodent_string = new Buffer.from(
+const correspodent_string = new Buffer.from(
         consumer_key + ":" + consumer_secret
-      ).toString("base64");
-      
-    //   function pad2(n) {
-    //     return n < 10 ? "0" + n : n;
-    //   }
-
-    //   let concat_timestamp = (year, month, day, hour, minutes, seconds) => {
-    //     return year + month + day + hour + minutes + seconds;
-    //   };
-    //   let generate_timestamp = () => {
-    //     var date = new Date();
-    //     let year = date.getFullYear().toString();
-    //     let month = pad2(date.getMonth() + 1);
-    //     let day = pad2(date.getDate());
-    //     let hour = pad2(date.getHours());
-    //     let minutes = pad2(date.getMinutes());
-    //     let seconds = pad2(date.getSeconds());
-      
-    //     let timestamp = concat_timestamp(year, month, day, hour, minutes, seconds);
-      
-    //     return timestamp;
-    //   };
-  
+      ).toString("base64"); 
+console.log("correspodent_string",correspodent_string)
 
 module.exports= {
-    
+//getting access token
  obtainAccessToken : async (req, res, next) => {
+  console.log("obtaining token")
     await axios({
       url: token_url,
       method: "get",
       headers: {
-        Authorization: `Basic ${correspodent_string}`,
+        Authorization: `Bearer ${correspodent_string}`,
       },
     })
       .then(async (response) => {
+        console.log("obtaining token here")
+
         req.body.access_token = await response.data.access_token;
         console.log("TOKEN 1",req.body.access_token)
 
         next();
       })
       .catch((error) => {
+        console.log("error",error)
+
         res.status(500).json({ message: error });
       });
     
   },
+
+  //making an stk push request
   
    mpesaExpressInt : async (req, res, next) => {
+    console.log("mpesaExpressInt")
     customerNames = {
       fName: req.body.fName,
       lName: req.body.lName,
     };
-  
-    // let timestamp = generate_timestamp();
-    // let password = passwordEncrypt(tillNumber, passKey, timestamp);
 
   
     axios({
@@ -80,17 +60,16 @@ module.exports= {
       },
       data: {
         "BusinessShortCode": 174379,
-        "Password": "MTc0Mzc5YmZiMjc5ZjlhYTliZGJjZjE1OGU5N2RkNzFhNDY3Y2QyZTBjODkzMDU5YjEwZjc4ZTZiNzJhZGExZWQyYzkxOTIwMjIxMDI3MDcxNjM0",
-        "Timestamp": "20221027071634",
+        "Password": "MTc0Mzc5YmZiMjc5ZjlhYTliZGJjZjE1OGU5N2RkNzFhNDY3Y2QyZTBjODkzMDU5YjEwZjc4ZTZiNzJhZGExZWQyYzkxOTIwMjIxMjA3MDk0NjA4",
+        "Timestamp": "20221207094608",
         "TransactionType": "CustomerPayBillOnline",
-        "Amount": req.body.total,
-        "PartyA": req.body.phone,
+        "Amount": 1,
+        "PartyA": 254742734120,
         "PartyB": 174379,
-        "PhoneNumber": req.body.phone ,
-        "CallBackURL": "https://prideserver.herokuapp.com/mpesa/confirmation",
+        "PhoneNumber": 254742734120,
+        "CallBackURL": "https://mydomain.com/path",
         "AccountReference": "Pride",
-        "TransactionDesc": "Order"       
-      },
+        "TransactionDesc": "Order"       },
     })
       .then((response) => {
         if (response.data.ResponseCode == 0) {
@@ -106,6 +85,7 @@ module.exports= {
       });
   },
 
+  //callback url
   confirmation: async (req, res, next) => {
     console.log("confirmation",req.body)
     const {MerchantRequestId, CheckoutRequestID, ResultCode, ResultDesc} = req.body.Body.stkCallback;

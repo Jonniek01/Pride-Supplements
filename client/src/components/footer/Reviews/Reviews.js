@@ -18,7 +18,8 @@ function Reviews() {
     .catch(err => console.log(err))
   }, [])
   return (
-    <div className='reviews' >{
+    <div className='reviews' >
+      {
       loading?"Loading...":
       reviews.map (review => (
         <div key={review._id} className="review">

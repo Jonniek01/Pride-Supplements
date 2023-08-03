@@ -24,5 +24,57 @@ The website's main features include:
 - Shopping cart and checkout functionality.
 - Integration with M-Pesa for secure and convenient payment processing.
 
+## How to Run the Project
+To run the project on your local machine, follow these steps:
+
+1. Clone the repository:
+   ```
+   git clone https://github.com/your-username/pride-supplements.git
+   cd pride-supplements
+   ```
+2. Install dependencies:
+3. Set up environment variables:
+4. Run the development server:
+5. Open in your browser:
+
+Navigate to  `http://localhost:3000` in your browser to view the website.
+
+Note: Replace `your_mongodb_connection_string`, `your_mpesa_api_key`, `your_mpesa_public_key`, and `your_mpesa_secret` with your actual MongoDB and M-Pesa API credentials.
+
+## Skills Gained
+By working on this project, you will gain experience in the following areas:
+
+- Full-stack web development using React.js, Node.js, and MongoDB.
+- Implementing user authentication and registration functionality.
+- Integrating with a third-party payment gateway (M-Pesa) for secure transactions.
+- Building a knowledge-based system for personalized product recommendations.
+- Managing state using Redux for a smoother user experience.
+- Handling API requests using Axios for seamless data communication.
+- Responsive web design for various devices and screen sizes.
+
+## Contributing
+We welcome contributions to enhance Pride Supplements and make it even better! If you'd like to contribute, please follow the standard GitHub flow:
+
+1. Fork the repository.
+2. Create a new branch for your feature/bug fix.
+3. Commit your changes and push them to your forked repository.
+4. Create a pull request to the original repository's main branch.
+   
+Please ensure your code follows the existing coding style, and provide a detailed description of the changes in your pull request.
+
+## License
+This project is licensed under the MIT License.
+
+I am open to any feedback or suggestions you may have. Happy coding!
+
+
+
+
+   
+
+
+
+
+
 
 

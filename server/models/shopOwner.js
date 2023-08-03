@@ -1,41 +1,39 @@
-//products model
-
+//shop owner model
 const mongoose = require('mongoose');
 
-const ProductSchema = mongoose.Schema({
+const ShopOwnerSchema = mongoose.Schema({
     name: {
         type: String,
         required: true
     },
-    price: {
-        type: Number,
-        required: true
-    },
-    identifier: {
+    email: {
         type: String,
         required: true
     },
-    description: {
+    phone: {
         type: String,
         required: true
     },
-    category: {
+    password: {
         type: String,
         required: true
     },
-    shopId:  {
+    date: {
+        type: Date,
+        default: Date.now
+    },
+    shopName: {
         type: String,
         required: true
     },
-    image: {
+    shopId: {
         type: String,
         required: true
     },
-    countInStock: {
-        type: Number,
+    role : {
+        type: String,
         required: true
     }
-
 });
 
-module.exports = mongoose.model('Product', ProductSchema);
+module.exports = mongoose.model('ShopOwner', ShopOwnerSchema);

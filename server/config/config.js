@@ -1,16 +1,25 @@
-const mongoose = require('mongoose')
-const url = `mongodb+srv://pride:${process.env.MONGOPWD}@cluster0.gzf3lkz.mongodb.net/prideDB?retryWrites=true&w=majority`;
+const mongoose = require('mongoose');
 
-const connectionParams={
-    useNewUrlParser: true,
-}
-const connectDB= async ()=>{
-    mongoose.connect(url,connectionParams)
-    .then( () => {
-        console.log('Connected to the database ')
+// Connection URL to MongoDB Atlas
+const url = `mongodb+srv://pride:${process.env.MONGOPWD}@cluster0.gzf3lkz.mongodb.net/Pride0?retryWrites=true&w=majority`;
+
+console.log(`MONGOPWD: ${process.env.MONGOPWD}`)
+
+// Connection options for Mongoose
+const connectionParams = {
+  useNewUrlParser: true,
+};
+
+// Async function to connect to the database
+const connectDB = async () => {
+  mongoose.connect(url, connectionParams)
+    .then(() => {
+      console.log('Connected to the database');
     })
-    .catch( (err) => {
-        console.error(`Error connecting to the database. n${err}`);
-    })
-}
-module.exports={connectDB}
+    .catch((err) => {
+      console.error(`Error connecting to the database.\n${err}`);
+    });
+};
+
+// Export the connectDB function
+module.exports = { connectDB };

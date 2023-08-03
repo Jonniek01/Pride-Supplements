@@ -1,209 +1,182 @@
-/* eslint-disable no-unused-vars */
-const {connectDB} = require('../config/config')
-const Product = require ('../models/Product')
-const ObjectId = require('mongodb').ObjectID
-const Code = require ('../models/Code')
+//products controllers
+
+const Product = require('../models/Product');
+
+//codes
+const Code = require('../models/Code');
 
 
-connectDB()
 module.exports = {
-    getProducts: async(req, res)=>{
-
-                try{
-                    // const result = await Product.aggregate([{ $sample: { size: 9 } }])
-                    //get all
-                    const result = await Product.find({})
-                    res.status(200).json(result)
-                    }
-                    catch(err){
-                        res.status(500).json({
-                            "Error":err.message
-                        })
-                    }
-        
+    getProducts: async (req, res) => {
+        console.log('getProducts called')
+        try {
+            const products = await Product.find();
+            res.json(products);
+        } catch (err) {
+            res.json({ message: err });
+        }
     },
-    getProductsByPage: async(req, res)=>{
-        const {page, limit}= req.params
-            if(page <1) {
-                return res.json({"error" : true,"message" : "invalid page number"});
-                }
-                else{
-                    const query={
-                        skip:limit*(page-1),
-                        limit:limit
-                    }
-                try{
-                    const result = await Product.find({},{},query)
-                    res.status(200).json(result)
-                    }
-                    catch(err){
-                        res.status(500).json({
-                            "Error":err.message
-                        })
-                    }
-        
-          }
+    getProduct: async (req, res) => {
+        try {
+            const product
+                = await Product.findById(req.params.id);
+            res.json(product);
+        } catch (err) {
+            res.json({ message: err });
+        }
     },
-    createProduct: async(req, res)=>{
-        const {identifier,
-             name, 
-             price,
-             image,
-              description, 
-              category}=req.body;
-              try {
-                //create and store user
-                const result =  await Product.create({
-                    identifier:identifier,
-                    name:name,
-                    price:price,
-                    image:image,
-                    description:description,
-                    category:category
-                });
-                res.json(result);
-            }
-            catch(err){
-                res.status(500).json({'message':err.message})
-            }
-    
-
-    },
-    getProduct: async(req, res)=>{
-        const {id}= req.params
-                try{
-                    const result = await Product.find({_id : ObjectId(id)})
-                    res.status(200).json(result)
-                    }
-                    catch(err){
-                        res.status(500).json({
-                            "Error":err.message
-                        })
-                    }
-        
-    },
-    getProductByCode: async(req, res)=>{
-        const {code}= req.params;
-        try{
-            Code.find({skincode:code}).then(async (result)=>{
-                const items= await Product.find({identifier:result[0].products})
-                res.json(items)
-
-            })
-            .catch((err)=>{
-                res.status(500).json({
-                    "Error":err.message
-                })
-                })
+    createProduct: async (req, res) => {
+        //unique identifier field
+        let product= await Product.findOne({identifier:req.body.identifier});
+        if(product){
+            return res.status(400).json({msg:'Product already exists'});
+        }
+        product = new Product({
+            name: req.body.name,
+            price: req.body.price,
+            description: req.body.description,
+            image: req.body.image,
+            category: req.body.category,
+            countInStock: req.body.countInStock,
+            shopId: req.body.shopId,
+            identifier: req.body.identifier,
             
 
-        }
-        catch(err){
-            res.status(500).json({
-                "Error":err.message
-            })
-
-        }
-
-    },
-    search: async (req, res)=>{
-        const {query}=req.params;
-        console.log("searching", query)
-
-        try{
-            const items= await Product.find({ $text: { $search: query } });
-            res.json(items)
-
-        }
-        catch(err){
-            res.status(500).json({
-                "Error":err.message
-            })
-
-        }
-
-
-    },
-    searchByCategory: async (req, res)=>{
-        const {category, query}=req.params;
-        console.log("searching", query)
-
-        try{
-            const items= await Product.find({ $text: { $search: query }, category:category });
-            res.json(items)
-
-        }
-        catch(err){
-            res.status(500).json({
-                "Error":err.message
-            })
-
-        }
-
-},
-filterByCategory: async (req, res)=>{
-    const {category}=req.params;
-    console.log("searching", category)
-
-    try{
-        const items= await Product.find({category:category });
-        res.json(items)
-
-    }
-    catch(err){
-        res.status(500).json({
-            "Error":err.message
-        })
-
-    }
-},
-filterByCategories: async (req, res)=>{
-    const {categories}=req.body;
-    console.log("searching", categories)
-
-    try{
-        const items= await Product.find({category:{$in:categories} });
-        res.json(items)
-
-    }
-    catch(err){
-        res.status(500).json({
-            "Error":err.message
-        })
-
-    }
-},
-editProduct: async (req, res)=>{
-    const {id}=req.params;
-    const {identifier,
-        name, 
-        price,
-        image,
-         description, 
-         category}=req.body;
-         try {
-           const result =  await Product.updateOne({_id: ObjectId(id)}, {
-               identifier:identifier,
-               name:name,
-               price:price,
-               image:image,
-               description:description,
-               category:category
-           });
-           res.json(result);
-       }
-       catch(err){
-           res.status(500).json({'message':err.message})
-       }
-    },
-    deleteProduct: async (req, res)=>{
-        const {id}=req.params;
+        });
         try {
-          const result =  await Product.deleteOne({_id: ObjectId(id)});
-          res.json(result);
-      }
-      catch(err){
-          res.status(500).json({'message':err.message})
-      }
-       },
+            const savedProduct = await product.save();
+            res.json(savedProduct);
+        } catch (err) {
+            res.json({ message: err });
+        }
+    },
+    updateProduct: async (req, res) => {
+        try {
+            const updatedProduct = await Product
+                .updateOne(
+                    { _id: req.params.id },
+                    {
+                        $set: {
+                            name: req.body.name,
+                            price: req.body.price
+                        }
+                    }
+                );
+            res.json(updatedProduct);
+        } catch (err) {
+            res.json({ message: err });
+        }
+    },
+    deleteProduct: async (req, res) => {
+        try {
+            const removedProduct = await Product
+                .deleteOne({ _id: req.params.id });
+            res.json(removedProduct);
+        } catch (err) {
+            res.json({ message: err });
+        }
+    }
+,
+getProductsPageLimit: async (req, res) => {
+    try {
+        const products = await Product.find()
+            .skip((req.params.page - 1) * req.params.limit)
+            .limit(parseInt(req.params.limit));
+        res.json(products);
+    } catch (err) {
+        res.json({ message: err });
+    }
+                    
+
+},
+//search product match name or description
+searchProduct: async (req, res) => {
+    const {query}=req.params;
+    console.log("searching", query)
+
+    try{
+        const items= await Product.find({$or:[{name:{$regex:query, $options:'i'}},{description:{$regex:query, $options:'i'}}]} );
+        res.json(items)
+
+    }
+    catch(err){
+        res.status(500).json({
+            "Error":err.message
+        })
+
+    }
+},
+getProductByCode: async(req, res)=>{
+    const {code}= req.params;
+    try{
+        Code.find({skincode:code}).then(async (result)=>{
+            const items= await Product.find({identifier:result[0].products})
+            res.json(items)
+
+        })
+        .catch((err)=>{
+            res.status(500).json({
+                "Error":err.message
+            })
+            })
+        
+
+    }
+    catch(err){
+        res.status(500).json({
+            "Error":err.message
+        })
+
+    }
+
+},
+
+getProductsByCode: async(req, res)=>{
+
+    const {code}= req.params;
+    try{
+        Code.find({skincode:code}).then(async (result)=>{
+            const items = await Product.find({identifier:code})
+            res.json(items)
+
+        })
+        .catch((err)=>{
+            res.status(500).json({
+                "Error":err.message
+            })
+            })
+        
+
+    }
+    catch(err){
+        res.status(500).json({
+            "Error":err.message
+        })
+
+    }
+
+},
+
+    
+
+searchProductByCategory: async (req, res) => {
+    const {query, category}=req.params;
+    console.log("searching", query)
+
+    try{
+        const items= await Product.find({$and:[{category:category},{$or:[{name:{$regex:query, $options:'i'}},{description:{$regex:query, $options:'i'}}]}]} );
+        res.json(items)
+
+    }
+    catch(err){
+        res.status(500).json({
+            "Error":err.message
+        })
+
+    }
+
+} 
+
+
+
 }

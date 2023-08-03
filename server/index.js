@@ -1,35 +1,56 @@
-const express = require("express");
-const cors = require('cors');
+//Import the dependencies
+const express = require('express');
 const bodyParser = require('body-parser');
+const cors = require('cors');
+//use dotenv to read .env vars into Node
 require('dotenv').config();
-const { products } = require('./routes/products');
-const { users } = require('./routes/users');
-const { images } = require('./routes/images');
-const { codes } = require("./routes/codes");
-const { orders } = require("./routes/orders");
-const { feedback } = require("./routes/feedback");
+
+//connect to database
+const { connectDB } = require('./config/config');
+
+connectDB();
 
 
-const mongoose = require('mongoose');
-
+//Create an instance of the Express app
 const app = express();
-app.use(express.json());
-app.use(bodyParser.json());
+
+//Enable CORS by using the cors middleware
 app.use(cors());
 
-// eslint-disable-next-line no-undef
-const PORT =5000;
+//Enable JSON parsing by using the body-parser middleware
+app.use(bodyParser.json());
 
-app.use('/',products);
-app.use('/users',users);
-app.use('/images',images);
-app.use('/p/codes/g',codes);
-app.use('/orders',orders);
-app.use('/feedback',feedback);
+//users route
+app.use('/users', require('./routes/users'));
+
+//products route
+app.use('/products', require('./routes/products'));
+
+//shops route
+app.use('/shops', require('./routes/shops'));
+
+//codes route
+app.use('/codes', require('./routes/codes'));
+
+//auth route
+app.use('/auth', require('./routes/auth'));
 
 
+//orders
+app.use('/orders', require('./routes/orders'));
 
-mongoose.connection.once('open', ()=>{
-    console.log('connected to mongoDB')
-})
-app.listen(PORT, () => console.log(`Server running on port http://localhost:${PORT}`));
+//ratings
+
+app.use('/ratings', require('./routes/ratings'));
+
+//get default route
+app.get('/', (req, res) => {
+    res.send('Hello World!');
+});
+
+//Start the server
+const port = 8080;
+app.listen(port, () => {
+    console.log(`Server listening on port ${port}`);
+});
+

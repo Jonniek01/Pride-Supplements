@@ -1,32 +1,50 @@
+//products route
 const express = require('express');
-const products = express.Router();
-const  {getProducts,
-            getProduct, 
-            createProduct,
-             getProductByCode,
-              search,
-               searchByCategory,
-               filterByCategory,
-               filterByCategories,
-               getProductsByPage,
-               editProduct,
-               deleteProduct,
-            } = require ('../controllers/products');
-            
- products.get('/', (req, res)=>{
-   res.status(200).json({message: 'Welcome to the Pride Server'});
+const router = express.Router();
 
- });
-products.get('/all/random', getProducts);
-products.get('/bypage/:page/:limit', getProductsByPage);
+// Require controllers from ../controllers/products.js
 
-products.post('/', createProduct);
-products.get('/:id', getProduct);
-products.get('/code/a/z/:code', getProductByCode);
-products.get('/products/search/:query', search);
-products.get('/products/search/:category/:query', searchByCategory);
-products.get('/filter/:category', filterByCategory);
-products.post('/filters/categories', filterByCategories);
-products.put('/:id', editProduct);
-products.delete('/:id', deleteProduct);
-module.exports = {products};
+const {
+    getProducts,
+    getProduct,
+    createProduct,
+    updateProduct,
+    deleteProduct,
+    getProductsPageLimit,
+    searchProduct,
+    getProductByCode,
+    searchProductByCategory,
+    getProductsByCode
+} = require('../controllers/products');
+
+//routes
+
+router.get('/', getProducts);
+
+router.get('/:id', getProduct);
+
+router.post('/', createProduct);
+
+router.put('/:id', updateProduct);
+
+router.delete('/:id', deleteProduct);
+
+//get by page and limit
+router.get('/page/:page/limit/:limit', getProductsPageLimit);
+
+//search product
+router.get('/search/:query', searchProduct);
+
+//search by category
+router.get('/category/:category/:query', searchProductByCategory);
+
+//find by code
+router.get('/code/:code', getProductByCode);
+
+
+router.get('/code/:code', getProductsByCode);
+
+
+
+
+module.exports = router;

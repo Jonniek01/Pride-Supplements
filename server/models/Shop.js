@@ -1,41 +1,35 @@
-//products model
-
+//shop model
 const mongoose = require('mongoose');
 
-const ProductSchema = mongoose.Schema({
+const ShopSchema = mongoose.Schema({
     name: {
         type: String,
         required: true
     },
-    price: {
-        type: Number,
-        required: true
-    },
-    identifier: {
+    locationName: {
         type: String,
         required: true
     },
-    description: {
+    location: {
         type: String,
         required: true
     },
-    category: {
+    phone: {
         type: String,
         required: true
     },
-    shopId:  {
+    email: {
         type: String,
         required: true
     },
-    image: {
+    shopKey: {
         type: String,
         required: true
     },
-    countInStock: {
-        type: Number,
-        required: true
-    }
-
+    date: {
+        type: Date,
+        default: Date.now
+    },
 });
 
-module.exports = mongoose.model('Product', ProductSchema);
+module.exports = mongoose.model('shop', ShopSchema);

@@ -10,7 +10,9 @@ module.exports = {
     getProducts: async(req, res)=>{
 
                 try{
-                    const result = await Product.aggregate([{ $sample: { size: 9 } }])
+                    // const result = await Product.aggregate([{ $sample: { size: 9 } }])
+                    //get all
+                    const result = await Product.find({})
                     res.status(200).json(result)
                     }
                     catch(err){

@@ -3,7 +3,7 @@ import React from 'react'
 import { Routes, Route } from 'react-router-dom';
 import Main from './components/main/Main';
 import Admin from './components/admin/Admin';
-import FMS from './components/FMS/FMS';
+// import FMS from './components/FMS/FMS';
 import Cart from './components/cart/Cart';
 import Account from './components/Account/Account';
 import Sequel from './components/sequel/Sequel';
@@ -57,7 +57,7 @@ function App() {
           <Route path='/admin/offers' element={<Offers/>}/>
           <Route path='/admin/stock' element={<Stock/>}/>          
         </Route>
-        <Route path='/fms' element={<FMS/>}/>
+        {/* <Route path='/fms' element={<FMS/>}/> */}
         <Route path='/cart' element={<Cart/>} />
         <Route path='/account' element={<Account/>}>
           <Route index path='/account/orders' element={<Orders/>}/>

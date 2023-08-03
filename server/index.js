@@ -18,7 +18,7 @@ app.use(bodyParser.json());
 app.use(cors());
 
 // eslint-disable-next-line no-undef
-const PORT = process.env.PORT;
+const PORT =5000;
 
 app.use('/',products);
 app.use('/users',users);

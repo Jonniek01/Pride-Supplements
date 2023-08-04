@@ -60,7 +60,7 @@ To run the project on your local machine, follow these steps:
    MONGOPWD="your_mongo_db"
    CONSUMER_KEY='your_daraja_api_consumer_key'
    CONSUMER_SECRET='your_daraja_api_consumer_secret'
-   TOKEN_URL='https://sandbox.safaricom.co.ke/oauth/v1/generate?grant_type=client_credentials'//CHECK DARAJA API                DOCUMENTATION
+   TOKEN_URL='https://sandbox.safaricom.co.ke/oauth/v1/generate?grant_type=client_credentials'//CHECK DARAJA API DOCUMENTATION
    EXPRESS_URL='https://sandbox.safaricom.co.ke/mpesa/stkpush/v1/processrequest'//CHECK DARAJA API DOCUMENTATION
    TILL_NUMBER=YOUR_TILL_NUMBER
    PASS_KEY='your_mpesa_passkey'

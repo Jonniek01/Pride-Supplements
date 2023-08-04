@@ -1,6 +1,21 @@
 # Pride-Supplements
 Pride Supplements is a knowledge-based full-stack e-commerce website built to provide a wide range of skin supplements to users based on their specific skin characteristics. The website is built using React.js for the frontend, Node.js with Express.js for the backend, and MongoDB for the database. It also integrates with M-Pesa, a popular mobile payment platform, to facilitate seamless and secure payment transactions.
 ## Table of Contents
+1. [Technologies Used](#technologies-used)
+   - Frontend
+   - Backend
+   - Payment Integration
+2. [Project Overview](#project-overview)
+   - User Authentication and Registration
+   - Browse and Search for Skin Supplements
+   - Personalized Product Recommendations
+   - Shopping Cart and Checkout Functionality
+   - Integration with M-Pesa for Payment Processing
+3. [How to Run the Project](#how-to-run-the-project)
+4. [Skills Gained](#skills-gained)
+5. [Contributing](#Contributing)
+6. [License](#license)
+
 ## Technologies Used
 ### Frontend
 - React.js - JavaScript library for building user interfaces.
@@ -32,14 +47,34 @@ To run the project on your local machine, follow these steps:
    git clone https://github.com/your-username/pride-supplements.git
    cd pride-supplements
    ```
-2. Install dependencies:
-3. Set up environment variables:
-4. Run the development server:
-5. Open in your browser:
+2.Navigate to `client` and `server` folders.
+   ```
+   cd client
+   cd server
+   ```
+3. Install dependencies:
+   `npm install`
+5. Set up environment variables for the server:
+   ```
+   PORT = YOUR_AVAILABLE_PORT_FOR_SERVER
+   MONGOPWD="your_mongo_db"
+   CONSUMER_KEY='your_daraja_api_consumer_key'
+   CONSUMER_SECRET='your_daraja_api_consumer_secret'
+   TOKEN_URL='https://sandbox.safaricom.co.ke/oauth/v1/generate?grant_type=client_credentials'//CHECK DARAJA API                DOCUMENTATION
+   EXPRESS_URL='https://sandbox.safaricom.co.ke/mpesa/stkpush/v1/processrequest'//CHECK DARAJA API DOCUMENTATION
+   TILL_NUMBER=YOUR_TILL_NUMBER
+   PASS_KEY='your_mpesa_passkey'
+   ```
+7. Run the development server:
+   Client: `npm start`
+   Server: `npm start`
+   More scripts in   `package.json` files
+   
+9. Open in your browser:
 
-Navigate to  `http://localhost:3000` in your browser to view the website.
+Navigate to  `http://localhost:3000` or your own configured port in your browser to view the website.
 
-Note: Replace `your_mongodb_connection_string`, `your_mpesa_api_key`, `your_mpesa_public_key`, and `your_mpesa_secret` with your actual MongoDB and M-Pesa API credentials.
+Note: Replace environmental variables with your actual MongoDB and M-Pesa API credentials.
 
 ## Skills Gained
 By working on this project, you will gain experience in the following areas:

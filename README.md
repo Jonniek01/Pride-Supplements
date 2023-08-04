@@ -44,8 +44,8 @@ To run the project on your local machine, follow these steps:
 
 1. Clone the repository:
    ```
-   git clone https://github.com/your-username/pride-supplements.git
-   cd pride-supplements
+   git clone ndigirigijohn/Pride-Supplements
+   cd    Pride-supplements
    ```
 2.Navigate to `client` and `server` folders.
    ```
